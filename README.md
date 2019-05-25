@@ -17,6 +17,19 @@
 - CS : Conseil CPAS / OCMWraden
 - DI : Conseil de district (Anvers) / Districtraden (in Antwerpen)
 
+`level` can be one of the following (some combinations are not available though) :
+
+- M : Bureau principal de commune / Gemeentehoofdbureau
+- K : Bureau principal de canton / Kantonhoofdbureau
+- D : Bureau principal de district / Stadsdistricthoofdbureau
+- A : Bureau principal d’arrondissement / Arrondissementshoofdbureau
+- C : Bureau principal de circonscription / Kieskringhoofdbureau
+- G : Bureau principal de la circonscription germanophone / Hoofdbureau van de Duitstalige kieskring
+- O : Bureau central de province / Centraal provinciaal bureau
+- P : Bureau principal provincial / Provinciehoofdbureau
+- L : Bureau principal de collège / Collegehoofdbureau
+- R : Royaume / Koninkrijk
+
 ### Initial data (Format I)
 
 GET `/format-i/entities/{year:[0-9]{4}}/{type:\w+}` will give you the list of entities.
@@ -43,3 +56,8 @@ GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}` will give you the results.
 
 Example (temporary test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>  
 Example (final test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>
+
+GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the detailed results.
+
+Example (temporary test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>  
+Example (final test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>
