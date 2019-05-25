@@ -44,6 +44,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-i/candidates/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\CandidatesHandler::class, 'format-i.candidates');
 
     $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\ResultsHandler::class, 'format-r.results');
+    $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultsDHandler::class, 'format-r.resultsd');
 
     $app->get('/municipalities/{year:[0-9]{4}}[/{nis:[0-9]{5}}]', App\Handler\MunicipalityHandler::class, 'municipality');
 };
