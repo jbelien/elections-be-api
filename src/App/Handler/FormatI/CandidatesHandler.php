@@ -23,7 +23,7 @@ class CandidatesHandler implements RequestHandlerInterface
         $candidate = new Candidate(intval($year), $type, $test);
 
         $candidates = $candidate->getCandidates();
-
+        header('Cache-Control: "max-age=86400, public"');
         return new JsonResponse($candidates);
     }
 }
