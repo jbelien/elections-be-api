@@ -20,3 +20,7 @@ RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
 
 Header set Access-Control-Allow-Origin *
 AddOutputFilterByType DEFLATE application/json
+
+<If "%{REQUEST_URI} =~ m#^/format-i.*#">
+  Header set Cache-Control "max-age=86400, public"
+</If>
