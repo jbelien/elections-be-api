@@ -23,7 +23,9 @@ class GroupsHandler implements RequestHandlerInterface
         $group = new Group(intval($year), $type, $test);
 
         $groups = $group->getGroups();
-        header('Cache-Control: "max-age=86400, public"');
-        return new JsonResponse($groups);
+
+        return new JsonResponse($groups, 200, [
+            'Cache-Control' => 'max-age=86400, public',
+        ]);
     }
 }

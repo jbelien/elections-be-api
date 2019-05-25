@@ -24,7 +24,9 @@ class ResultsHandler implements RequestHandlerInterface
         $result = new Result(intval($year), $type, $test, $final);
 
         $results = $result->getResults();
-        header('Cache-Control: "max-age=300, public"');
-        return new JsonResponse($results);
+
+        return new JsonResponse($results, 200, [
+            'Cache-Control' => 'max-age=300, public',
+        ]);
     }
 }
