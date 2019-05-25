@@ -22,10 +22,9 @@ Header set Access-Control-Allow-Origin *
 AddOutputFilterByType DEFLATE application/json
 
 # 5 minute cache for the r-files
-<DirectoryMatch "^format-r">
+
   Header set Cache-Control "max-age=300, public"
-</DirectoryMatch>
 # 1 day cache for the format i files
-<DirectoryMatch "^format-i">
-  Header set Cache-Control "max-age=86400, public"
-</DirectoryMatch>
+#<DirectoryMatch "^format-i">
+#  Header set Cache-Control "max-age=86400, public"
+#</DirectoryMatch>
