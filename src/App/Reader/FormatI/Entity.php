@@ -63,7 +63,7 @@ class Entity
                         'stations' => intval($data[12]),
                         'max_official' => intval($data[6]),
                         'max_substitues' => intval($data[7]),
-                        'registration' => [
+                        'registrations' => [
                             'BB' => intval($data[8]),
                             'E1_E2' => intval($data[9]),
                             'E3_E4' => intval($data[10]),
