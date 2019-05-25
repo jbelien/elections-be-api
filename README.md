@@ -19,19 +19,18 @@
 
 ### Initial data (Format I)
 
-GET `/format-i/entities/{year:[0-9]{4}}/{type:\w+}`
+GET `/format-i/entities/{year:[0-9]{4}}/{type:\w+}` will give you the list of entities.
 
-will give you the list of entities.
+Example: <https://api.elections.openknowledge.be/format-i/entities/2019/CK>
 
-GET `/format-i/groups/{year:[0-9]{4}}/{type:\w+}`
+GET `/format-i/groups/{year:[0-9]{4}}/{type:\w+}` will give you the political groups.
 
-will give you the political groups.
+Example: <https://api.elections.openknowledge.be/format-i/groups/2019/CK>
 
-GET `/format-i/lists/{year:[0-9]{4}}/{type:\w+}`
+GET `/format-i/lists/{year:[0-9]{4}}/{type:\w+}` will give you the political lists.
 
-will give you the political lists.
+Example: <https://api.elections.openknowledge.be/format-i/lists/2019/CK>
 
-GET  `/format-i/candidates/{year:[0-9]{4}}/{type:\w+}`
+GET  `/format-i/candidates/{year:[0-9]{4}}/{type:\w+}` will give you the political candidates.
 
-will give you the political candidates.
-
+Example: <https://api.elections.openknowledge.be/format-i/candidates/2019/CK>
