@@ -52,6 +52,11 @@ Example: <https://api.elections.openknowledge.be/format-i/candidates/2019/CK>
 
 **Warning: those are obviously TEST data !**
 
+GET `/format-r/evolution/{year:[0-9]{4}}/{type:\w+}` will give you the evolution of the results.
+
+Example (temporary test results): <https://api.elections.openknowledge.be/format-r/evolution/2019/CK?test>  
+Example (final test results): <https://api.elections.openknowledge.be/format-r/evolution/2019/CK?test>
+
 GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}` will give you the results.
 
 Example (temporary test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>  
