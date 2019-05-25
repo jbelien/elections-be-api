@@ -55,11 +55,23 @@ class Result
 
             if (($handle = fopen($file, 'r')) !== false) {
                 while (($data = fgetcsv($handle)) !== false) {
-                    if ($data[0] !== 'L' && $data[0] !== 'C') {
+                    if ($data[0] !== 'S' && $data[0] !== 'L' && $data[0] !== 'C') {
                         continue;
                     }
 
-                    if ($data[0] === 'L') {
+                    if ($data[0] === 'S') {
+                        $results['count'] = [
+                            'registered_ballot' => [
+                                'BB_E1_E2' => intval($data[1]),
+                                'E3_E4' => intval($data[3]),
+                                'E5' => intval($data[5]),
+                            ],
+                            'null_blank_ballot' => [
+                                'BB_E1_E2_E5' => intval($data[2]),
+                                'E3_E4' => intval($data[4]),
+                            ]
+                        ];
+                    } elseif ($data[0] === 'L') {
                         $nr = intval($data[1]);
                         $list = current(array_filter($lists, function ($l) use ($nr) {
                             return $l['nr'] === $nr;
