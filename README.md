@@ -66,3 +66,14 @@ GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the
 
 Example (temporary test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>  
 Example (final test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>
+
+---
+
+## More information
+
+- BB : Belgians, entitled to vote and living in the Kingdom of Belgium.
+- E1 + E2 : Belgians, entitled to vote and living outside Belgium, who will vote in person or by proxy in a municipality of the Kingdom of Belgium.
+- E3 + E4 : Belgians, entitled to vote and living outside Belgium, who will vote in person or by proxy in the Belgian diplomatic or consular - professional post where the person has chosen to subscribe himself.
+- E5 : Belgians, entitled to vote and living outside Belgium, who will vote by letter.
+
+> Source: <http://polling2014.belgium.be/en/cha/results/results_tab_CKR00000.html>
