@@ -34,3 +34,12 @@ Example: <https://api.elections.openknowledge.be/format-i/lists/2019/CK>
 GET  `/format-i/candidates/{year:[0-9]{4}}/{type:\w+}` will give you the political candidates.
 
 Example: <https://api.elections.openknowledge.be/format-i/candidates/2019/CK>
+
+### Results data (Format R)
+
+**Warning: those are obviously TEST data !**
+
+GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}` will give you the results.
+
+Example (temporary test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>  
+Example (final test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>
