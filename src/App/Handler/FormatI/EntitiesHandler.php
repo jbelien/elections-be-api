@@ -23,7 +23,7 @@ class EntitiesHandler implements RequestHandlerInterface
         $entity = new Entity(intval($year), $type, $test);
 
         $entities = $entity->getEntities();
-
+        header('Cache-Control: "max-age=86400, public"');
         return new JsonResponse($entities);
     }
 }

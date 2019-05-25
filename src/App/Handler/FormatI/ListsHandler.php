@@ -23,7 +23,7 @@ class ListsHandler implements RequestHandlerInterface
         $list = new Liste(intval($year), $type, $test);
 
         $lists = $list->getLists();
-
+        header('Cache-Control: "max-age=86400, public"');
         return new JsonResponse($lists);
     }
 }
