@@ -61,6 +61,14 @@ class Entity
                         'parent' => strlen($data[5]) > 0 ? $data[5] : null,
                         'electronic' => strlen($data[14]) > 0,
                         'stations' => intval($data[12]),
+                        'max_official' => intval($data[6]),
+                        'max_substitues' => intval($data[7]),
+                        'registration' => [
+                            'BB' => intval($data[8]),
+                            'E1_E2' => intval($data[9]),
+                            'E3_E4' => intval($data[10]),
+                            'E5' => intval($data[11]),
+                        ],
                     ];
                 } elseif ($data[0] === 'T') {
                     switch ($data[2]) {
