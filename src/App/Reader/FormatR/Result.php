@@ -50,38 +50,40 @@ class Result
 
         $glob = glob(sprintf('%s/R{0,1}R*.%s', $directory, $this->type), GLOB_BRACE);
 
-        $file = current($glob);
+        if (count($glob) > 0) {
+            $file = current($glob);
 
-        if (($handle = fopen($file, 'r')) !== false) {
-            while (($data = fgetcsv($handle)) !== false) {
-                if ($data[0] !== 'L' && $data[0] !== 'C') {
-                    continue;
+            if (($handle = fopen($file, 'r')) !== false) {
+                while (($data = fgetcsv($handle)) !== false) {
+                    if ($data[0] !== 'L' && $data[0] !== 'C') {
+                        continue;
+                    }
+
+                    if ($data[0] === 'L') {
+                        $nr = intval($data[1]);
+                        $list = current(array_filter($lists, function ($l) use ($nr) {
+                            return $l['nr'] === $nr;
+                        }));
+
+                        $results[$list['id']] = [
+                            'list' => $list,
+                            'status' => $data[2],
+                            'seats' => intval($data[8]),
+                            'candidates' => [],
+                        ];
+                    } elseif ($data[0] === 'C') {
+                        $id = intval($data[10]);
+
+                        $results[$list['id']]['candidates'][$id] = [
+                            'candidate' => $candidates[$id],
+                            'votes' => intval($data[4]),
+                            'official_order_nr' => strlen($data[8]) > 0 ? intval($data[8]) : null,
+                            'substitute_order_nr' => strlen($data[9]) > 0 ? intval($data[9]) : null,
+                        ];
+                    }
                 }
-
-                if ($data[0] === 'L') {
-                    $nr = intval($data[1]);
-                    $list = current(array_filter($lists, function ($l) use ($nr) {
-                        return $l['nr'] === $nr;
-                    }));
-
-                    $results[$list['id']] = [
-                        'list' => $list,
-                        'status' => $data[2],
-                        'seats' => intval($data[8]),
-                        'candidates' => [],
-                    ];
-                } elseif ($data[0] === 'C') {
-                    $id = intval($data[10]);
-
-                    $results[$list['id']]['candidates'][$id] = [
-                        'candidate' => $candidates[$id],
-                        'votes' => intval($data[4]),
-                        'official_order_nr' => strlen($data[8]) > 0 ? intval($data[8]) : null,
-                        'substitute_order_nr' => strlen($data[9]) > 0 ? intval($data[9]) : null,
-                    ];
-                }
+                fclose($handle);
             }
-            fclose($handle);
         }
 
         return $results;
