@@ -41,9 +41,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-i/entities/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntitiesHandler::class, 'format-i.entities');
     $app->get('/format-i/groups/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\GroupsHandler::class, 'format-i.groups');
     $app->get('/format-i/lists/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\ListsHandler::class, 'format-i.lists');
-    $app->get('/format-i/candidates/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\CandidatesHandler::class, 'format-r.evolution');
+    $app->get('/format-i/candidates/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\CandidatesHandler::class, 'format-i.candidates');
 
-    $app->get('/format-r/evolution/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\EvolutionHandler::class, 'format-i.candidates');
+    $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\ResultsHandler::class, 'format-r.results');
 
     $app->get('/municipalities/{year:[0-9]{4}}[/{nis:[0-9]{5}}]', App\Handler\MunicipalityHandler::class, 'municipality');
 };
