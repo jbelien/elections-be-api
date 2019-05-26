@@ -50,12 +50,19 @@ class Status
             preg_match('/^RG([A-Z])([0-9]{5})\.([A-Z]{2})$/', basename($file), $matches);
 
             $nis = $matches[2];
-            $municipality = $municipalities[$nis];
 
-            $status[$nis] = [
-                'municipality' => $municipality,
-                'status'       => [],
-            ];
+            if ($nis === '00000') {
+                $status[$nis] = [
+                    'status' => [],
+                ];
+            } else {
+                $municipality = $municipalities[$nis];
+
+                $status[$nis] = [
+                    'municipality' => $municipality,
+                    'status'       => [],
+                ];
+            }
 
             if (($handle = fopen($file, 'r')) !== false) {
                 while (($data = fgetcsv($handle)) !== false) {
