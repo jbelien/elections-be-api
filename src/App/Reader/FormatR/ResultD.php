@@ -80,8 +80,8 @@ class ResultD
                         ];
                     } elseif ($data[0] === 'L') {
                         $nr = intval($data[1]);
-                        $list = current(array_filter($lists, function ($l) use ($nr) {
-                            return $l['nr'] === $nr;
+                        $list = current(array_filter($lists, function ($l) use ($entityId, $nr) {
+                            return $l['entity']['id'] === $entityId && $l['nr'] === $nr;
                         }));
 
                         $results[$entityId]['results'][$list['id']] = [
