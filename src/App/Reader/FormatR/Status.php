@@ -1,13 +1,9 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidate;
-use App\Reader\FormatI\Entity;
-use App\Reader\FormatI\Group;
-use App\Reader\FormatI\Liste;
 use App\Reader\Municipality;
 
 class Status
@@ -58,7 +54,7 @@ class Status
 
             $status[$nis] = [
                 'municipality' => $municipality,
-                'status' => [],
+                'status'       => [],
             ];
 
             if (($handle = fopen($file, 'r')) !== false) {
@@ -70,13 +66,13 @@ class Status
                     $status[$nis]['status'][] = [
                         'datetime' => $data[1],
                         'stations' => [
-                            'total' => intval($data[2]),
+                            'total'   => intval($data[2]),
                             'counted' => intval($data[3]),
                         ],
                         'cantons' => [
-                            'total' => intval($data[4]),
-                            'processed' => intval($data[5]),
-                            'completed' => intval($data[6]),
+                            'total'      => intval($data[4]),
+                            'processed'  => intval($data[5]),
+                            'completed'  => intval($data[6]),
                             'definitive' => intval($data[7]),
                         ],
                     ];
