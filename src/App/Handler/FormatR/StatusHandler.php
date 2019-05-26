@@ -8,6 +8,7 @@ use App\Reader\FormatR\Status;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
 class StatusHandler implements RequestHandlerInterface
@@ -17,6 +18,59 @@ class StatusHandler implements RequestHandlerInterface
         $year = $request->getAttribute('year');
         $type = $request->getAttribute('type');
         $level = $request->getAttribute('level');
+
+        switch ($type) {
+            case 'BR': // Parlement de la Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Parlement
+                if (!in_array($level, ['R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'CG': // Conseil communal / Gemeenteraden
+                if (!in_array($level, ['M', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'CK': // Chambre / Kamer
+                if (!in_array($level, ['C', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'CS': // Conseil CPAS / OCMWraden
+                if (!in_array($level, ['M', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'DE': // Parlement de la Communauté germanophone / Parlement van de Duitstalige Gemeenschap
+                if (!in_array($level, ['G', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'DI': // Conseil de district (Anvers) / Districtraden (in Antwerpen)
+                if (!in_array($level, ['I', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'EU': // Parlement européen / Europese Parlement
+                if (!in_array($level, ['C', 'P', 'L', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'PR': // Conseil provincial / Provincieraden
+                if (!in_array($level, ['D', 'A', 'P', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'VL': // Parlement flamand / Vlaams Parlement
+                if (!in_array($level, ['C', 'R'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+            case 'WL': // Parlement régional wallon / Waals Parlement
+                if (!in_array($level, ['C', 'R', 'P'])) {
+                    return new EmptyResponse(404);
+                }
+                break;
+        }
 
         $params = $request->getQueryParams();
         $test = isset($params['test']);
