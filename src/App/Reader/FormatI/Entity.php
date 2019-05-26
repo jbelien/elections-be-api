@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
@@ -51,23 +51,23 @@ class Entity
 
                 if ($data[0] === 'E') {
                     $entities[$id] = [
-                        'id' => $id,
-                        'level' => $data[2],
-                        'name_fr' => null,
-                        'name_nl' => null,
-                        'name_de' => null,
-                        'name_en' => null,
-                        'nis' => $data[1],
-                        'parent' => strlen($data[5]) > 0 ? $data[5] : null,
-                        'electronic' => strlen($data[14]) > 0,
-                        'stations' => intval($data[12]),
-                        'max_official' => intval($data[6]),
+                        'id'             => $id,
+                        'level'          => $data[2],
+                        'name_fr'        => null,
+                        'name_nl'        => null,
+                        'name_de'        => null,
+                        'name_en'        => null,
+                        'nis'            => $data[1],
+                        'parent'         => strlen($data[5]) > 0 ? $data[5] : null,
+                        'electronic'     => strlen($data[14]) > 0,
+                        'stations'       => intval($data[12]),
+                        'max_official'   => intval($data[6]),
                         'max_substitues' => intval($data[7]),
-                        'registrations' => [
-                            'BB' => intval($data[8]),
+                        'registrations'  => [
+                            'BB'    => intval($data[8]),
                             'E1_E2' => intval($data[9]),
                             'E3_E4' => intval($data[10]),
-                            'E5' => intval($data[11]),
+                            'E5'    => intval($data[11]),
                         ],
                     ];
                 } elseif ($data[0] === 'T') {

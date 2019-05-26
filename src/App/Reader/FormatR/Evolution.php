@@ -1,13 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Liste;
-use App\Reader\FormatI\Group;
 use App\Reader\FormatI\Entity;
-use App\Reader\FormatI\Candidate;
 
 class Evolution
 {
@@ -60,12 +57,12 @@ class Evolution
                     $entity = $entities[$id];
 
                     $evolution[$id] = [
-                        'status' => $data[3],
-                        'entity' => $entity,
+                        'status'             => $data[3],
+                        'entity'             => $entity,
                         'stations_processed' => intval($data[4]),
-                        'stations_total' => intval($data[5]),
-                        'date' => $data[6],
-                        'time' => $data[7],
+                        'stations_total'     => intval($data[5]),
+                        'date'               => $data[6],
+                        'time'               => $data[7],
                     ];
                 }
                 fclose($handle);

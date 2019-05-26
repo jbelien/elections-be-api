@@ -50,15 +50,15 @@ class FMedias
                                 $nis = $data[2];
                                 $result = [
                                     // 'nis' => $nis,
-                                    'seats' => intval($data[3]),
+                                    'seats'      => intval($data[3]),
                                     'subsitutes' => intval($data[4]),
-                                    'lists' => [],
+                                    'lists'      => [],
                                 ];
                             }
                             break;
                         case 'L':
                             $result['lists'][intval($data[3])] = [
-                                'name' => $data[4],
+                                'name'       => $data[4],
                                 'effectives' => [],
                                 'substitues' => [],
                             ];
@@ -67,10 +67,10 @@ class FMedias
                             $nr = intval($data[5]);
 
                             $candidate = [
-                                'fullname' => $data[6],
-                                'gender' => $data[7],
+                                'fullname'  => $data[6],
+                                'gender'    => $data[7],
                                 'birthdate' => $data[8],
-                                'lastname' => $data[9],
+                                'lastname'  => $data[9],
                                 'firstname' => $data[10],
                             ];
 

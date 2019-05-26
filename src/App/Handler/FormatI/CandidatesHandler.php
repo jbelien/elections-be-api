@@ -1,14 +1,14 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
+use App\Reader\FormatI\Candidate;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Reader\FormatI\Candidate;
 
 class CandidatesHandler implements RequestHandlerInterface
 {

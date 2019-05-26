@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
@@ -50,12 +50,12 @@ class Group
                 }
 
                 $groups[$id] = [
-                    'id' => $id,
-                    'name' => $data[1],
-                    'color' => $data[5],
+                    'id'       => $id,
+                    'name'     => $data[1],
+                    'color'    => $data[5],
                     'previous' => intval($data[4]) !== 0 ? [
                         'name' => $data[3],
-                        'id' => intval($data[4]),
+                        'id'   => intval($data[4]),
                     ] : null,
                 ];
             }

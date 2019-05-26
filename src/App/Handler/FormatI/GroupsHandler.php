@@ -1,13 +1,13 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
+use App\Reader\FormatI\Group;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Reader\FormatI\Group;
 use Zend\Diactoros\Response\JsonResponse;
 
 class GroupsHandler implements RequestHandlerInterface

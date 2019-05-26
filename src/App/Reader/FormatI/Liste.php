@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
@@ -53,15 +53,15 @@ class Liste
                 }
 
                 $lists[$id] = [
-                    'id' => $id,
-                    'name' => $data[5],
-                    'lang' => $data[6],
-                    'nr' => intval($data[4]),
-                    'group' => isset($groups[intval($data[8])]) ? $groups[intval($data[8])] : null,
-                    'entity' => isset($entities[intval($data[13])]) ? $entities[intval($data[13])] : null,
+                    'id'       => $id,
+                    'name'     => $data[5],
+                    'lang'     => $data[6],
+                    'nr'       => intval($data[4]),
+                    'group'    => isset($groups[intval($data[8])]) ? $groups[intval($data[8])] : null,
+                    'entity'   => isset($entities[intval($data[13])]) ? $entities[intval($data[13])] : null,
                     'previous' => intval($data[11]) !== 0 ? [
                         'name' => $data[12],
-                        'id' => intval($data[11]),
+                        'id'   => intval($data[11]),
                     ] : null,
                 ];
             }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Reader\FMedias;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Reader\FMedias;
 
 class FMediasHandler implements RequestHandlerInterface
 {
