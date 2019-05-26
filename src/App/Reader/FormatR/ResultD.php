@@ -6,7 +6,6 @@ namespace App\Reader\FormatR;
 
 use App\Reader\FormatI\Candidate;
 use App\Reader\FormatI\Entity;
-use App\Reader\FormatI\Group;
 use App\Reader\FormatI\Liste;
 
 class ResultD
