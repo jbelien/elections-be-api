@@ -72,11 +72,14 @@ class Result
 
             if (($handle = fopen($file, 'r')) !== false) {
                 while (($data = fgetcsv($handle)) !== false) {
-                    if ($data[0] !== 'S' && $data[0] !== 'L' && $data[0] !== 'C') {
+                    if ($data[0] !== 'G' && $data[0] !== 'S' && $data[0] !== 'L' && $data[0] !== 'C') {
                         continue;
                     }
 
-                    if ($data[0] === 'S') {
+                    if ($data[0] === 'G') {
+                        $results['date'] = $data[5];
+                        $results['time'] = $data[6];
+                    } elseif ($data[0] === 'S') {
                         $results['count'] = [
                             'registered_ballot' => [
                                 'BB_E1_E2' => intval($data[1]),

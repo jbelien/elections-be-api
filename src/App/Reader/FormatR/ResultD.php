@@ -61,6 +61,9 @@ class ResultD
                         $entityId = intval($data[10]);
                         $entity = $entities[$entityId];
 
+                        $results['date'] = $data[5];
+                        $results['time'] = $data[6];
+
                         $results[$entityId] = [
                             'entity'  => $entity,
                             'results' => [],
