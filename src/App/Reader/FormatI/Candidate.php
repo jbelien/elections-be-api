@@ -37,8 +37,6 @@ class Candidate
         $candidates = [];
 
         $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
-        $groups = (new Group($this->year, $this->type, $this->test))->getGroups();
-        $entities = (new Entity($this->year, $this->type, $this->test))->getEntities();
 
         $file = sprintf('%s/IC.%s', $directory, $this->type);
 

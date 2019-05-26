@@ -47,7 +47,6 @@ class ResultD
 
         $candidates = (new Candidate($this->year, $this->type, $this->test))->getCandidates();
         $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
-        $groups = (new Group($this->year, $this->type, $this->test))->getGroups();
         $entities = (new Entity($this->year, $this->type, $this->test))->getEntities();
 
         $glob = glob(sprintf('%s/R{0,1}%s*.%s', $directory, $this->level, $this->type), GLOB_BRACE);
