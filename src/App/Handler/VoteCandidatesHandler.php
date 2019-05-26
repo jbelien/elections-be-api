@@ -37,7 +37,7 @@ class VoteCandidatesHandler implements RequestHandlerInterface
 
         $results = (new ResultD(intval($year), $type, $candidate['level'], $test, $final))->getResults();
 
-        $candidate['votes'] = $results[$entity['id']]['results'][$list['id']]['candidates'][$candidate['id']]['votes'];
+        $candidate['votes'] = $results[$entity['id']]['results'][$list['id']]['candidates'][$candidate['id']]['votes'] ?? 0;
 
         return new JsonResponse($candidate);
     }
