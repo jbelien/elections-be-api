@@ -45,7 +45,27 @@ class Result
         $candidates = (new Candidate($this->year, $this->type, $this->test))->getCandidates();
         $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
 
-        $glob = glob(sprintf('%s/R{0,1}R*.%s', $directory, $this->type), GLOB_BRACE);
+        switch ($this->type) {
+            case 'BR':
+                $fname = 'R{0,1}R21004';
+                break;
+            case 'DE':
+                $fname = 'R{0,1}G63023';
+                break;
+            case 'CK':
+            case 'EU':
+            case 'VL':
+            case 'WL':
+                $fname = 'R{0,1}R00000';
+                break;
+            case 'PR':
+            case 'CG':
+            case 'CS':
+                // To Find out
+                break;
+        }
+
+        $glob = glob(sprintf('%s/%s.%s', $directory, $fname, $this->type), GLOB_BRACE);
 
         if (count($glob) > 0) {
             $file = current($glob);
