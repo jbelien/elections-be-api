@@ -49,4 +49,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\StatusHandler::class, 'format-r.status');
 
     $app->get('/municipalities/{year:[0-9]{4}}[/{nis:[0-9]{5}}]', App\Handler\MunicipalityHandler::class, 'municipality');
+
+    $app->get('/votes/candidates/{year:[0-9]{4}}/{type:\w+}/{id:[0-9]+}', App\Handler\VoteCandidatesHandler::class, 'vote.candidate');
+    // $app->get('/votes/candidates/{year:[0-9]{4}}/{type:\w+}/list-{list:[0-9]+}/{type:(effective|substitues)}/{nr:[0-9]+}', App\Handler\VoteCandidateHandler::class, 'vote.candidate');
 };
