@@ -67,6 +67,11 @@ GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the
 Example (temporary test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>  
 Example (final test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>
 
+GET `/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the status the count.
+
+Example (temporary test status): <https://api.elections.openknowledge.be/format-r/status/2019/CK/C?test>  
+Example (final test status): <https://api.elections.openknowledge.be/format-r/status/2019/CK/C?test>
+
 ---
 
 ## More information
