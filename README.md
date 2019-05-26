@@ -30,6 +30,8 @@
 - L : Bureau principal de collège / Collegehoofdbureau
 - R : Royaume / Koninkrijk
 
+🔧 You can add `?test` to all the queries to access test data. By default, it will return "intermediate" results ; if you want final results, add `?test&final` to the queries.
+
 ### Initial data (Format I)
 
 GET `/format-i/entities/{year:[0-9]{4}}/{type:\w+}` will give you the list of entities.
@@ -50,27 +52,21 @@ Example: <https://api.elections.openknowledge.be/format-i/candidates/2019/CK>
 
 ### Results data (Format R)
 
-**Warning: those are obviously TEST data !**
-
 GET `/format-r/evolution/{year:[0-9]{4}}/{type:\w+}` will give you the evolution of the results.
 
-Example (temporary test results): <https://api.elections.openknowledge.be/format-r/evolution/2019/CK?test>  
-Example (final test results): <https://api.elections.openknowledge.be/format-r/evolution/2019/CK?test>
+Example: <https://api.elections.openknowledge.be/format-r/evolution/2019/CK>  
 
 GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}` will give you the results.
 
-Example (temporary test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>  
-Example (final test results): <https://api.elections.openknowledge.be/format-r/results/2019/CK?test>
+Example: <https://api.elections.openknowledge.be/format-r/results/2019/CK>  
 
 GET `/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the detailed results.
 
-Example (temporary test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>  
-Example (final test detailed results): <https://api.elections.openknowledge.be/format-r/results/2019/CK/C?test>
+Example: <https://api.elections.openknowledge.be/format-r/results/2019/CK/C>  
 
 GET `/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the status the count.
 
-Example (temporary test status): <https://api.elections.openknowledge.be/format-r/status/2019/CK/C?test>  
-Example (final test status): <https://api.elections.openknowledge.be/format-r/status/2019/CK/C?test>
+Example: <https://api.elections.openknowledge.be/format-r/status/2019/CK/C>  
 
 ---
 
