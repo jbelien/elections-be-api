@@ -31,7 +31,7 @@ class Municipality
         if (($handle = fopen($file, 'r')) !== false) {
             while (($data = fgetcsv($handle)) !== false) {
                 $list[$data[0]] = [
-                    'nis' => $data[0],
+                    'nis'     => $data[0],
                     'name_fr' => $data[1],
                     'name_nl' => $data[2],
                 ];
