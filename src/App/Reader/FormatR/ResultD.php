@@ -82,8 +82,8 @@ class ResultD
                         $nr = intval($data[1]);
                         $group = intval($data[9]);
 
-                        $list = current(array_filter($lists, function ($l) use ($group, $nr) {
-                            return $l['group']['id'] === $group && $l['nr'] === $nr;
+                        $list = current(array_filter($lists, function ($l) use ($entityId, $nr) {
+                            return $l['entity']['id'] === $entityId && $l['nr'] === $nr;
                         }));
 
                         $results[$entityId]['results'][$list['id']] = [
