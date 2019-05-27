@@ -45,6 +45,11 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.group');
     $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/entity/{entity:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.entity');
 
+    $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\CandidatesHandler::class, 'api.candidates');
+    $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}/list/{list:\d+}', App\Handler\API\CandidatesHandler::class, 'api.candidates.list');
+    $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\CandidatesHandler::class, 'api.candidates.group');
+    $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}/entity/{entity:\d+}', App\Handler\API\CandidatesHandler::class, 'api.candidates.entity');
+
     $app->get('/fmedias/{year:[0-9]{4}}/{type:\w+}', App\Handler\FMediasHandler::class, 'fmedias');
 
     $app->get('/format-i/entities/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntitiesHandler::class, 'format-i.entities');
