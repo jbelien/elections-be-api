@@ -36,6 +36,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 
+    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\EntitiesHandler::class, 'api.entities.id');
+    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\API\EntitiesHandler::class, 'api.entities.level');
+
     $app->get('/fmedias/{year:[0-9]{4}}/{type:\w+}', App\Handler\FMediasHandler::class, 'fmedias');
 
     $app->get('/format-i/entities/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntitiesHandler::class, 'format-i.entities');
