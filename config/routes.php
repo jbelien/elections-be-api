@@ -41,6 +41,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/groups/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\GroupsHandler::class, 'api.groups');
 
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\ListsHandler::class, 'api.lists');
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.group');
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/entity/{entity:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.entity');
+
     $app->get('/fmedias/{year:[0-9]{4}}/{type:\w+}', App\Handler\FMediasHandler::class, 'fmedias');
 
     $app->get('/format-i/entities/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntitiesHandler::class, 'format-i.entities');
