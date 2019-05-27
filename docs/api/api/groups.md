@@ -1,4 +1,4 @@
-# Entities
+# Groups
 
 {% api-method method="get" host="https://api.elections.openknowledge.be" path="/groups/:year/:type\[/:id\]" %}
 {% api-method-summary %}
