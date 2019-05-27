@@ -68,6 +68,14 @@ GET `/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the 
 
 Example: <https://api.elections.openknowledge.be/format-r/status/2019/CK/C>  
 
+GET `/format-r/seats/{year:[0-9]{4}}/{type:\w+}` will give you the number of seats.
+
+Example: <https://api.elections.openknowledge.be/format-r/seats/2019/CK>  
+
+GET `/format-r/hit/{year:[0-9]{4}}/{type:\w+}/{level:\w+}` will give you the *hit-parade*.
+
+Example: <https://api.elections.openknowledge.be/format-r/hit/2019/CK/R>  
+
 ---
 
 ## More information
