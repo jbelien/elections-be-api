@@ -40,9 +40,11 @@ Use **final** test data instead of **intermediate** test data.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -59,7 +61,7 @@ Get entities by level
 {% api-method-description %}
 This endpoint allows you to get information about entities filtered by level.  
 If you need a list of available elections types, see Types.  
-If you need a list of available elections levels, see Levels (not all levels are available for each type).
+If you need a list of available elections levels, see Levels \(not all levels are available for each type\).
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -92,9 +94,11 @@ Use **final** test data instead of **intermediate** test data.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -102,4 +106,6 @@ Use **final** test data instead of **intermediate** test data.
 {% endapi-method %}
 
 {% page-ref page="../../more-information/types.md" %}
+
 {% page-ref page="../../more-information/levels.md" %}
+
