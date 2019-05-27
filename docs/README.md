@@ -1,2 +1,2 @@
-# Initial page
+# Open Knowledge Belgium - Elections API
 

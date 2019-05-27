@@ -10,7 +10,8 @@ Get groups
 {% endapi-method-summary %}
 
 {% api-method-description %}
-This endpoint allows you to get free cakes.
+This endpoint allows you to get all the groups for specific elections.  
+If you need the list of the available elections types, see Types.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -21,7 +22,7 @@ Year of the elections.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="type" type="string" required=true %}
-Type of the elections \(see ...\).
+Type of the elections \(see Types\).
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 
@@ -31,7 +32,7 @@ Use **test** data instead of real data.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="final" type="boolean" %}
-Use **final** test data instead of intermediate test data.
+Use **final** test data instead of **intermediate** test data.
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}

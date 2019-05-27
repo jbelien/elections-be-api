@@ -1,6 +1,8 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Open Knowledge Belgium - Elections API](README.md)
+* [Types](types.md)
+* [Levels](levels.md)
 
 ## API
 
