@@ -11,7 +11,7 @@ Get groups
 
 {% api-method-description %}
 This endpoint allows you to get all the groups for specific elections.  
-If you need the list of the available elections types, see Types.
+If you need the list of the available elections types, see [Types](../types/).
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -22,7 +22,7 @@ Year of the elections.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="type" type="string" required=true %}
-Type of the elections \(see Types\).
+Type of the elections \(see [Types](../types/)\).
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 
