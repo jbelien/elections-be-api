@@ -62,3 +62,5 @@ Groups successfully retrieved.
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% page-ref page="../types.md" %}
+

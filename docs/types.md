@@ -1,6 +1,6 @@
 # Types
 
-## List of available elections type
+## List of available elections types
 
 * `CK` : Chambre / Kamer
 * `VL` : Parlement flamand / Vlaams Parlement
