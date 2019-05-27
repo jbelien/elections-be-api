@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Reader\FormatR;
 
 use App\Reader\FormatI\Candidates;
-use App\Reader\FormatI\Groups;
 use App\Reader\FormatI\Lists;
 
 class Result
