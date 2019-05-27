@@ -73,7 +73,7 @@ Use **final** test data instead of **intermediate** test data.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% page-ref page="../types.md" %}
+{% page-ref page="../more-information/types.md" %}
 
 {% api-method method="get" host="https://api.elections.openknowledge.be" path="/format-i/groups/:year/:type" %}
 {% api-method-summary %}
@@ -133,5 +133,5 @@ Use **final** test data instead of **intermediate** test data.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% page-ref page="../types.md" %}
+{% page-ref page="../more-information/types.md" %}
 
