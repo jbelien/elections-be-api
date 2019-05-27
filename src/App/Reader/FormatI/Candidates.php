@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
-class Candidate
+class Candidates
 {
     private $year;
     private $type;
@@ -36,7 +36,7 @@ class Candidate
 
         $candidates = [];
 
-        $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
+        $lists = (new Lists($this->year, $this->type, $this->test))->getLists();
 
         $file = sprintf('%s/IC.%s', $directory, $this->type);
 

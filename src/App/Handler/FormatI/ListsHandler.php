@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
-use App\Reader\FormatI\Liste;
+use App\Reader\FormatI\Lists;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -20,9 +20,7 @@ class ListsHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $list = new Liste(intval($year), $type, $test);
-
-        $lists = $list->getLists();
+        $lists = (new Lists(intval($year), $type, $test))->getLists();
 
         return new JsonResponse($lists, 200, [
             'Cache-Control' => 'max-age=86400, public',

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
-class Group
+class Groups
 {
     private $year;
     private $type;

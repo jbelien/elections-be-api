@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
-use App\Reader\FormatI\Candidate;
+use App\Reader\FormatI\Candidates;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -20,9 +20,7 @@ class CandidatesHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $candidate = new Candidate(intval($year), $type, $test);
-
-        $candidates = $candidate->getCandidates();
+        $candidates = (new Candidates(intval($year), $type, $test))->getCandidates();
 
         return new JsonResponse($candidates, 200, [
             'Cache-Control' => 'max-age=86400, public',

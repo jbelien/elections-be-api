@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidate;
-use App\Reader\FormatI\Group;
-use App\Reader\FormatI\Liste;
+use App\Reader\FormatI\Candidates;
+use App\Reader\FormatI\Groups;
+use App\Reader\FormatI\Lists;
 
 class Result
 {
@@ -42,8 +42,8 @@ class Result
 
         $results = [];
 
-        $candidates = (new Candidate($this->year, $this->type, $this->test))->getCandidates();
-        $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
+        $candidates = (new Candidates($this->year, $this->type, $this->test))->getCandidates();
+        $lists = (new Lists($this->year, $this->type, $this->test))->getLists();
 
         switch ($this->type) {
             case 'BR':

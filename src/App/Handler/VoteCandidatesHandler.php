@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Reader\FormatI\Candidate;
+use App\Reader\FormatI\Candidates;
 use App\Reader\FormatR\ResultD;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,7 +24,7 @@ class VoteCandidatesHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
-        $candidates = (new Candidate(intval($year), $type, $test))->getCandidates();
+        $candidates = (new Candidates(intval($year), $type, $test))->getCandidates();
 
         if (!isset($candidates[$id])) {
             return new EmptyResponse(404);

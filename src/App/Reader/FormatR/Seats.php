@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Group;
+use App\Reader\FormatI\Groups;
 
 class Seats
 {
@@ -40,7 +40,7 @@ class Seats
 
         $seats = [];
 
-        $groups = (new Group($this->year, $this->type, $this->test))->getGroups();
+        $groups = (new Groups($this->year, $this->type, $this->test))->getGroups();
 
         $file = sprintf('%s/RSR00000.%s', $directory, $this->type);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
-use App\Reader\FormatI\Entity;
+use App\Reader\FormatI\Entities;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -20,9 +20,7 @@ class EntitiesHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $entity = new Entity(intval($year), $type, $test);
-
-        $entities = $entity->getEntities();
+        $entities = (new Entities(intval($year), $type, $test))->getEntities();
 
         return new JsonResponse($entities, 200, [
             'Cache-Control' => 'max-age=86400, public',

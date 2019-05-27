@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
-class Entity
+class Entities
 {
     private $year;
     private $type;

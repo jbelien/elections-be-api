@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Entity;
+use App\Reader\FormatI\Entities;
 
 class Evolution
 {
@@ -40,7 +40,7 @@ class Evolution
 
         $evolution = [];
 
-        $entities = (new Entity($this->year, $this->type, $this->test))->getEntities();
+        $entities = (new Entities($this->year, $this->type, $this->test))->getEntities();
 
         $glob = glob(sprintf('%s/RER*.%s', $directory, $this->type), GLOB_BRACE);
 

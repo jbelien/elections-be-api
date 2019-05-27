@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
-use App\Reader\FormatI\Group;
+use App\Reader\FormatI\Groups;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -20,9 +20,7 @@ class GroupsHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $group = new Group(intval($year), $type, $test);
-
-        $groups = $group->getGroups();
+        $groups = (new Groups(intval($year), $type, $test))->getGroups();
 
         return new JsonResponse($groups, 200, [
             'Cache-Control' => 'max-age=86400, public',

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidate;
-use App\Reader\FormatI\Entity;
-use App\Reader\FormatI\Liste;
+use App\Reader\FormatI\Candidates;
+use App\Reader\FormatI\Entities;
+use App\Reader\FormatI\Lists;
 
 class ResultD
 {
@@ -44,9 +44,9 @@ class ResultD
 
         $results = [];
 
-        $candidates = (new Candidate($this->year, $this->type, $this->test))->getCandidates();
-        $lists = (new Liste($this->year, $this->type, $this->test))->getLists();
-        $entities = (new Entity($this->year, $this->type, $this->test))->getEntities();
+        $candidates = (new Candidates($this->year, $this->type, $this->test))->getCandidates();
+        $lists = (new Lists($this->year, $this->type, $this->test))->getLists();
+        $entities = (new Entities($this->year, $this->type, $this->test))->getEntities();
 
         $glob = glob(sprintf('%s/R{0,1}%s*.%s', $directory, $this->level, $this->type), GLOB_BRACE);
 

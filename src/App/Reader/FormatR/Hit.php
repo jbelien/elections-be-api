@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidate;
+use App\Reader\FormatI\Candidates;
 use App\Reader\Municipality;
 
 class Hit
@@ -44,7 +44,7 @@ class Hit
         $status = [];
 
         $municipalities = (new Municipality($this->year))->getMunicipalities();
-        $candidates = (new Candidate($this->year, $this->type, $this->test))->getCandidates();
+        $candidates = (new Candidates($this->year, $this->type, $this->test))->getCandidates();
 
         $glob = glob(sprintf('%s/RH%s*.%s', $directory, $this->level, $this->type), GLOB_BRACE);
 

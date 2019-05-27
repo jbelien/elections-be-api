@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
-class Liste
+class Lists
 {
     private $year;
     private $type;
@@ -36,8 +36,8 @@ class Liste
 
         $lists = [];
 
-        $groups = (new Group($this->year, $this->type, $this->test))->getGroups();
-        $entities = (new Entity($this->year, $this->type, $this->test))->getEntities();
+        $groups = (new Groups($this->year, $this->type, $this->test))->getGroups();
+        $entities = (new Entities($this->year, $this->type, $this->test))->getEntities();
 
         $file = sprintf('%s/IL.%s', $directory, $this->type);
 
