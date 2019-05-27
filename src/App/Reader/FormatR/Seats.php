@@ -56,7 +56,7 @@ class Seats
                 $seats[$id] = [
                     'group' => $group,
                     'seats' => intval($data[2]),
-                    'men' => intval($data[3]),
+                    'men'   => intval($data[3]),
                     'women' => intval($data[4]),
                 ];
             }
