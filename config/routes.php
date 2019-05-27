@@ -48,6 +48,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultsDHandler::class, 'format-r.resultsd');
     $app->get('/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\StatusHandler::class, 'format-r.status');
     $app->get('/format-r/seats/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\SeatsHandler::class, 'format-r.seats');
+    $app->get('/format-r/hit/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\HitHandler::class, 'format-r.hit');
 
     $app->get('/municipalities/{year:[0-9]{4}}[/{nis:[0-9]{5}}]', App\Handler\MunicipalityHandler::class, 'municipality');
 
