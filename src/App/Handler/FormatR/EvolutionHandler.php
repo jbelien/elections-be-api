@@ -23,9 +23,7 @@ class EvolutionHandler implements RequestHandlerInterface
 
         $evolution = new Evolution(intval($year), $type, $test, $final);
 
-        $evolutions = $evolution->getEvolution();
-
-        return new JsonResponse($evolutions, 200, [
+        return new JsonResponse($evolution->getArray(), 200, [
             'Cache-Control' => 'max-age=300, public',
         ]);
     }

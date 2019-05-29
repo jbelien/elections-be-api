@@ -1,74 +1,80 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Entities;
+use App\Reader\FormatR\Evolution\C;
+use App\Reader\FormatR\Evolution\G;
+use League\Csv\Reader;
+use League\Csv\Statement;
+use App\Reader\FormatI\Entity;
 
 class Evolution
 {
     private $year;
     private $type;
+
     private $test;
-    private $final;
+    private $testFinal;
 
-    private $evolution = [];
+    private $file;
+    private $metadata;
+    private $cantons;
 
-    public function __construct(int $year, string $type, bool $test = false, bool $final = false)
+    public function __construct(int $year, string $type, bool $test = false, bool $testFinal = false)
     {
         $this->year = $year;
         $this->type = $type;
+
         $this->test = $test;
-        $this->final = $this->test && $final;
+        $this->testFinal = $this->test && $testFinal;
 
-        $this->evolution = $this->read();
-    }
-
-    public function getEvolution()
-    {
-        return $this->evolution;
-    }
-
-    private function read()
-    {
         if ($this->test === true) {
-            $directory = sprintf('data/%d/test/format-r/%s', $this->year, $this->final ? 'final' : 'intermediate');
+            $this->file = sprintf('data/%d/test/format-r/%s/RER00000.%s', $this->year, $this->testFinal ? 'final' : 'intermediate', $this->type);
         } else {
-            $directory = sprintf('data/%d/format-r', $this->year);
+            $this->file = sprintf('data/%d/format-r/RER00000.%s', $this->year, $this->type);
         }
 
-        $evolution = [];
+        $this->metadata = $this->readG();
+        $this->cantons = $this->readC();
+    }
 
-        $entities = (new Entities($this->year, $this->type, $this->test))->getEntities();
+    private function readG(): G
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
 
-        $glob = glob(sprintf('%s/RER*.%s', $directory, $this->type), GLOB_BRACE);
+        $stmt = (new Statement())->offset(0)->limit(1);
 
-        if (count($glob) > 0) {
-            $file = current($glob);
+        $records = $stmt->process($csv);
 
-            if (($handle = fopen($file, 'r')) !== false) {
-                while (($data = fgetcsv($handle)) !== false) {
-                    if ($data[0] !== 'C') {
-                        continue;
-                    }
+        return G::fromArray($records->fetchOne(0));
+    }
 
-                    $id = intval($data[8]);
-                    $entity = $entities[$id];
+    private function readC(): array
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(1);
+        $records = $stmt->process($csv);
 
-                    $evolution[$id] = [
-                        'status'             => $data[3],
-                        'entity'             => $entity,
-                        'stations_processed' => intval($data[4]),
-                        'stations_total'     => intval($data[5]),
-                        'date'               => $data[6],
-                        'time'               => $data[7],
-                    ];
-                }
-                fclose($handle);
-            }
+        $list = [];
+
+        foreach ($records as $record) {
+            $list[] = C::fromArray($record);
         }
 
-        return $evolution;
+        return $list;
+    }
+
+
+    public function getArray(): array
+    {
+        $array = [
+            'file' => basename($this->file),
+            'metadata' => $this->metadata,
+            'cantons' => $this->cantons
+        ];
+
+        return $array;
     }
 }
