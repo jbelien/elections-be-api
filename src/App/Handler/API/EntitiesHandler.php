@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
-use App\Reader\FormatI\Entities;
+use App\Reader\FormatI\Entity;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -23,16 +23,26 @@ class EntitiesHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $entities = (new Entities(intval($year), $type, $test))->getEntities();
+        $entity = new Entity(intval($year), $type, $test);
 
         if (!is_null($id)) {
-            $result = $entities[$id];
+            $result = $entity->get(intval($id));
         } elseif (!is_null($level)) {
-            $result = array_filter($entities, function ($entity) use ($level) {
-                return $entity['level'] === $level;
+            $entities = $entity->getEntities();
+
+            $filter = array_filter($entities, function ($entity) use ($level) {
+                return $entity->level === $level;
             });
+
+            foreach ($filter as $e) {
+                $result[$e->id] = $entity->get($e->id);
+            }
         } else {
-            $result = $entities;
+            $entities = $entity->getEntities();
+
+            foreach ($entities as $e) {
+                $result[$e->id] = $entity->get($e->id);
+            }
         }
 
         return new JsonResponse($result, 200, [
