@@ -100,18 +100,10 @@ class Entity
     {
         $array = [
             'file' => basename($this->file),
-            'datetime' => $this->metadata->getDateTime()->format('c'),
-            'entities' => [],
-            'translations' => [],
+            'metadata' => $this->metadata,
+            'entities' => $this->entities,
+            'translations' => $this->translations,
         ];
-
-        foreach ($this->entities as $e) {
-            $array['entities'][] = $e;
-        }
-
-        foreach ($this->translations as $t) {
-            $array['translations'][] = $t;
-        }
 
         return $array;
     }
