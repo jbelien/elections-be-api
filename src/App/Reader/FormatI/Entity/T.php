@@ -1,10 +1,9 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI\Entity;
 
-use DateTime;
 use ErrorException;
 
 class T

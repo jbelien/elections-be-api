@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
@@ -99,9 +99,9 @@ class Entity
     public function getArray(): array
     {
         $array = [
-            'file' => basename($this->file),
-            'metadata' => $this->metadata,
-            'entities' => $this->entities,
+            'file'         => basename($this->file),
+            'metadata'     => $this->metadata,
+            'entities'     => $this->entities,
             'translations' => $this->translations,
         ];
 
@@ -124,7 +124,6 @@ class Entity
         $translations = array_filter($this->translations, function ($t) use ($id) {
             return $t->entity === $id;
         });
-
 
         return ModelEntity::fromE(current($entities), $translations);
     }

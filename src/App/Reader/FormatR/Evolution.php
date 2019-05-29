@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
@@ -8,7 +8,6 @@ use App\Reader\FormatR\Evolution\C;
 use App\Reader\FormatR\Evolution\G;
 use League\Csv\Reader;
 use League\Csv\Statement;
-use App\Reader\FormatI\Entity;
 
 class Evolution
 {
@@ -66,13 +65,12 @@ class Evolution
         return $list;
     }
 
-
     public function getArray(): array
     {
         $array = [
-            'file' => basename($this->file),
+            'file'     => basename($this->file),
             'metadata' => $this->metadata,
-            'cantons' => $this->cantons
+            'cantons'  => $this->cantons,
         ];
 
         return $array;
