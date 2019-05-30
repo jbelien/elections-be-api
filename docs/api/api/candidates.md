@@ -30,19 +30,17 @@ ID of the candidate.
 {% api-method-parameter name="test" type="boolean" %}
 Use **test** data instead of real data.
 {% endapi-method-parameter %}
-
-{% api-method-parameter name="final" type="boolean" %}
-Use **final** test data instead of **intermediate** test data.
-{% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -91,9 +89,11 @@ Use **final** test data instead of **intermediate** test data.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -142,9 +142,11 @@ Use **final** test data instead of **intermediate** test data.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -193,9 +195,11 @@ Use **final** test data instead of **intermediate** test data.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
+
 {% endapi-method-response-example-description %}
 
 ```javascript
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -203,3 +207,4 @@ Use **final** test data instead of **intermediate** test data.
 {% endapi-method %}
 
 {% page-ref page="../../more-information/types.md" %}
+

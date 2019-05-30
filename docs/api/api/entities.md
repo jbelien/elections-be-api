@@ -30,10 +30,6 @@ ID of the entity.
 {% api-method-parameter name="test" type="boolean" %}
 Use **test** data instead of real data.
 {% endapi-method-parameter %}
-
-{% api-method-parameter name="final" type="boolean" %}
-Use **final** test data instead of **intermediate** test data.
-{% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
