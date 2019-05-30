@@ -9,19 +9,19 @@ use ErrorException;
 
 class X
 {
-    /** @var string  */
+    /** @var string Nom du groupe. */
     public $name;
-    /** @var int  */
+    /** @var int Id du groupe de Listes. */
     public $id;
-    /** @var string  */
+    /** @var string Nom du groupe élection - 1. */
     public $previousName;
-    /** @var int  */
+    /** @var int Id du groupe de Listes élection - 1. */
     public $previousId;
-    /** @var string  */
+    /** @var string Couleur du GRP. */
     public $color;
-    /** @var int  */
+    /** @var int N° officiel de liste pour listes nationales. */
     public $nr;
-    /** @var int  */
+    /** @var int Tri technique. */
     public $order;
 
     public static function fromArray(array $record): self
