@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
-use App\Reader\FormatI\Groups;
-use App\Reader\FormatI\Lists;
+use App\Reader\FormatI\Group;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -23,23 +22,18 @@ class GroupsHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $groups = (new Groups(intval($year), $type, $test))->getGroups();
-        $lists = (new Lists(intval($year), $type, $test))->getLists();
-
-        $groups = array_map(function ($group) use ($lists) {
-            $id = $group['id'];
-
-            $group['lists'] = array_filter($lists, function ($list) use ($id) {
-                return $list['group']['id'] === $id;
-            });
-
-            return $group;
-        }, $groups);
+        $group = new Group(intval($year), $type, $test);
 
         if (!is_null($id)) {
-            $result = $groups[$id];
+            $result = $group->get(intval($id));
         } else {
-            $result = $groups;
+            $groups = array_filter($group->getGroups(), function ($g) {
+                return !is_null($g->id);
+            });
+
+            foreach ($groups as $g) {
+                $result[$g->id] = $group->get($g->id);
+            }
         }
 
         return new JsonResponse($result, 200, [

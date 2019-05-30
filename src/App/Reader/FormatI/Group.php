@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
+use App\Model\Group as ModelGroup;
 use App\Reader\FormatI\Group\G;
 use App\Reader\FormatI\Group\X;
 use Exception;
@@ -68,6 +69,11 @@ class Group
         return $list;
     }
 
+    public function getGroups() : array
+    {
+        return $this->groups;
+    }
+
     public function getArray(): array
     {
         return [
@@ -78,25 +84,21 @@ class Group
         ];
     }
 
-    /*
-        public function get(int $id) : ModelEntity
-        {
-            $entities = array_filter($this->entities, function ($e) use ($id) {
-                return $e->id === $id;
-            });
-    
-            if (count($entities) === 0) {
-                throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
-            }
-            if (count($entities) > 1) {
-                throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
-            }
-    
-            $translations = array_filter($this->translations, function ($t) use ($id) {
-                return $t->entity === $id;
-            });
-    
-            return ModelEntity::fromE(current($entities), $translations);
+    public function get(int $id) : ModelGroup
+    {
+        $groups = array_filter($this->groups, function ($g) use ($id) {
+            return $g->id === $id;
+        });
+
+        if (count($groups) === 0) {
+            throw new Exception(sprintf('Invalid group ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
         }
-    */
+        // Issue with 2019 election groups:
+        // "PTB*PVDA" (323) is defined twice because of previous name ("PTB-GO !" & "PVDA+")
+        // if (count($groups) > 1) {
+        //     throw new Exception(sprintf('Ambiguous group ID (%d).', $id));
+        // }
+
+        return ModelGroup::fromX(current($groups));
+    }
 }
