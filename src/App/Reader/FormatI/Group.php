@@ -29,7 +29,7 @@ class Group
         $this->test = $test;
 
         if ($this->test === true) {
-            $this->file = sprintf('data/%d/test/format-i/%s/IG.%s', $this->year, $this->testFinal ? 'final' : 'intermediate', $this->type);
+            $this->file = sprintf('data/%d/test/format-i/IG.%s', $this->year, $this->type);
         } else {
             $this->file = sprintf('data/%d/format-i/IG.%s', $this->year, $this->type);
         }
