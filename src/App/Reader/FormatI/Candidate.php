@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
+use App\Model\Candidate as ModelCandidate;
 use App\Reader\FormatI\Candidate\C;
 use App\Reader\FormatI\Candidate\G;
 use Exception;
@@ -68,6 +69,11 @@ class Candidate
         return $list;
     }
 
+    public function getCandidates() : array
+    {
+        return $this->candidates;
+    }
+
     public function getArray(): array
     {
         return [
@@ -78,25 +84,19 @@ class Candidate
         ];
     }
 
-    /*
-        public function get(int $id) : ModelEntity
-        {
-            $entities = array_filter($this->entities, function ($e) use ($id) {
-                return $e->id === $id;
-            });
-    
-            if (count($entities) === 0) {
-                throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
-            }
-            if (count($entities) > 1) {
-                throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
-            }
-    
-            $translations = array_filter($this->translations, function ($t) use ($id) {
-                return $t->entity === $id;
-            });
-    
-            return ModelEntity::fromE(current($entities), $translations);
+    public function get(int $id) : ModelCandidate
+    {
+        $candidates = array_filter($this->candidates, function (C $c) use ($id) {
+            return $c->id === $id;
+        });
+
+        if (count($candidates) === 0) {
+            throw new Exception(sprintf('Invalid candidate ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
         }
-    */
+        if (count($candidates) > 1) {
+            throw new Exception(sprintf('Ambiguous candidate ID (%d).', $id));
+        }
+
+        return ModelCandidate::fromC(current($candidates));
+    }
 }

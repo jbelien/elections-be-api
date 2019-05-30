@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
-use App\Reader\FormatI\Candidates;
+use App\Model\Candidate as ModelCandidate;
+use App\Reader\FormatI\Candidate;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use App\Reader\FormatI\Candidate\C;
 
 class CandidatesHandler implements RequestHandlerInterface
 {
@@ -25,24 +27,33 @@ class CandidatesHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $candidates = (new Candidates(intval($year), $type, $test))->getCandidates();
+        $candidate = new Candidate(intval($year), $type, $test);
 
         if (!is_null($id)) {
-            $result = $candidates[$id];
-        } elseif (!is_null($list)) {
-            $result = array_filter($candidates, function ($candidate) use ($list) {
-                return $candidate['list']['id'] === intval($list);
-            });
-        } elseif (!is_null($group)) {
-            $result = array_filter($candidates, function ($candidate) use ($group) {
-                return $candidate['list']['group']['id'] === intval($group);
-            });
-        } elseif (!is_null($entity)) {
-            $result = array_filter($candidates, function ($candidate) use ($entity) {
-                return $candidate['list']['entity']['id'] === intval($entity);
-            });
+            $result = $candidate->get(intval($id));
         } else {
-            $result = $candidates;
+            $candidates = array_filter($candidate->getCandidates(), function (C $c) {
+                return !is_null($c->id);
+            });
+
+            $result = [];
+            foreach ($candidates as $c) {
+                $result[$c->id] = $candidate->get($c->id);
+            }
+
+            if (!is_null($list)) {
+                $result = array_filter($result, function (ModelCandidate $candidate) use ($list) {
+                    return $candidate->idList === intval($list);
+                });
+            } elseif (!is_null($group)) {
+                $result = array_filter($result, function (ModelCandidate $candidate) use ($group) {
+                    return $candidate->idGroup === intval($group);
+                });
+            } elseif (!is_null($entity)) {
+                $result = array_filter($result, function (ModelCandidate $candidate) use ($entity) {
+                    return $candidate->idEntity === intval($entity);
+                });
+            }
         }
 
         return new JsonResponse($result, 200, [
