@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler\API;
 
 use App\Reader\FormatI\Group;
+use App\Reader\FormatI\Group\X;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -27,10 +28,11 @@ class GroupsHandler implements RequestHandlerInterface
         if (!is_null($id)) {
             $result = $group->get(intval($id));
         } else {
-            $groups = array_filter($group->getGroups(), function ($g) {
+            $groups = array_filter($group->getGroups(), function (X $g) {
                 return !is_null($g->id);
             });
 
+            $result = [];
             foreach ($groups as $g) {
                 $result[$g->id] = $group->get($g->id);
             }
