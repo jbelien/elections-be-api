@@ -84,7 +84,7 @@ class Entity extends E
             $geometry = current($this->municipalities)->getGeometry($year);
         } elseif (is_array($this->municipalities) && count($this->municipalities) > 1) {
             $geometry = [
-                'type' => 'MultiPolygon',
+                'type'        => 'MultiPolygon',
                 'coordinates' => [],
             ];
 
@@ -102,10 +102,10 @@ class Entity extends E
         }
 
         return [
-            'type' => 'Feature',
-            'id' => $this->id,
+            'type'       => 'Feature',
+            'id'         => $this->id,
             'properties' => $this,
-            'geometry' => $geometry ?? null,
+            'geometry'   => $geometry ?? null,
         ];
     }
 }

@@ -63,7 +63,7 @@ class EntitiesHandler implements RequestHandlerInterface
         }
 
         $geoJSON = [
-            'type' => 'FeatureCollection',
+            'type'     => 'FeatureCollection',
             'features' => [],
         ];
 
