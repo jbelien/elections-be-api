@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Reader\FormatI\Group\X;
-use App\Reader\FormatI\Liste;
 
 class Group
 {
@@ -27,7 +26,7 @@ class Group
         $group->id = $x->id;
         $group->name = $x->name;
         $group->previous = is_null($x->previousId) || is_null($x->previousName) ? null : [
-            'id' => $x->previousId,
+            'id'   => $x->previousId,
             'name' => $x->previousName,
         ];
         $group->color = $x->color;

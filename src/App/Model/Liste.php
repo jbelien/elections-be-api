@@ -41,7 +41,7 @@ class Liste
         $list->nr = $l->nr;
         $list->name = $l->name;
         $list->previous = is_null($l->previousId) || is_null($l->previousName) ? null : [
-            'id' => $l->previousId,
+            'id'   => $l->previousId,
             'name' => $l->previousName,
         ];
         $list->language = $l->language;

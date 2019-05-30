@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
+use App\Model\Liste as ModelListe;
 use App\Reader\FormatI\Liste;
 use App\Reader\FormatI\Liste\L;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Model\Liste as ModelListe;
 
 class ListsHandler implements RequestHandlerInterface
 {
