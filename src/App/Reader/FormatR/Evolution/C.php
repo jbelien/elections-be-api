@@ -21,10 +21,10 @@ class C
     public $countTotalStations;
     /** @var string Date de maj du canton. */
     public $date;
-    /** @var string Heure de maj  du canton. */
+    /** @var string Heure de maj du canton. */
     public $time;
     /** @var int ID unique de l’entité. */
-    public $entity;
+    public $idEntity;
 
     public static function fromArray(array $record): self
     {
@@ -41,7 +41,7 @@ class C
         $c->countTotalStations = intval($record[5]);
         $c->date = $record[6];
         $c->time = $record[7];
-        $c->entity = intval($record[8]);
+        $c->idEntity = intval($record[8]);
 
         return $c;
     }

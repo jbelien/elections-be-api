@@ -121,7 +121,7 @@ class Entity
         }
 
         $translations = array_filter($this->translations, function ($t) use ($id) {
-            return $t->entity === $id;
+            return $t->idEntity === $id;
         });
 
         return ModelEntity::fromE(current($entities), $translations);

@@ -9,7 +9,7 @@ use ErrorException;
 class T
 {
     /** @var int ID unique de l’entité. */
-    public $entity;
+    public $idEntity;
     /** @var string Langue. */
     public $language;
     /** @var string Nom de l’entité traduit. */
@@ -23,7 +23,7 @@ class T
 
         $t = new self();
 
-        $t->entity = intval($record[1]);
+        $t->idEntity = intval($record[1]);
         $t->language = $record[2];
         $t->name = $record[3];
 

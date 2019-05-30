@@ -9,7 +9,7 @@ use ErrorException;
 class L
 {
     /** @var string INS Entité. */
-    public $entityNis;
+    public $nisEntity;
     /** @var string Type d’élection. */
     public $type;
     /** @var string Niveau. */
@@ -33,7 +33,7 @@ class L
     /** @var string Nom de la liste élection - 1. */
     public $previousName;
     /** @var int ID unique de l’entité. */
-    public $entityId;
+    public $idEntity;
 
     public static function fromArray(array $record): self
     {
@@ -43,7 +43,7 @@ class L
 
         $l = new self();
 
-        $l->entityNis = $record[1];
+        $l->nisEntity = $record[1];
         $l->type = $record[2];
         $l->level = $record[3];
         $l->nr =  $record[4] !== 'null' ? intval($record[4]) : null;
@@ -55,7 +55,7 @@ class L
         $l->countSubstitutes = $record[10] !== 'null' ? intval($record[10]) : null;
         $l->previousId = $record[11] !== 'null' ? intval($record[11]) : null;
         $l->previousName = strlen($record[12]) > 0 ? $record[12] : null;
-        $l->entityId = intval($record[13]);
+        $l->idEntity = intval($record[13]);
 
         return $l;
     }
