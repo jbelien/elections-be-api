@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use App\Reader\FormatI\Extension;
 
 class EntitiesHandler implements RequestHandlerInterface
 {
@@ -24,9 +25,10 @@ class EntitiesHandler implements RequestHandlerInterface
         $test = isset($params['test']);
 
         $entity = new Entity(intval($year), $type, $test);
+        $extension = new Extension(intval($year), $type, $test);
 
         if (!is_null($id)) {
-            $result = $entity->get(intval($id));
+            $result = $entity->get(intval($id))->setMunicipalities($extension->getExtensions());
         } elseif (!is_null($level)) {
             $entities = $entity->getEntities();
 
@@ -35,13 +37,13 @@ class EntitiesHandler implements RequestHandlerInterface
             });
 
             foreach ($filter as $e) {
-                $result[$e->id] = $entity->get($e->id);
+                $result[$e->id] = $entity->get($e->id)->setMunicipalities($extension->getExtensions());
             }
         } else {
             $entities = $entity->getEntities();
 
             foreach ($entities as $e) {
-                $result[$e->id] = $entity->get($e->id);
+                $result[$e->id] = $entity->get($e->id)->setMunicipalities($extension->getExtensions());
             }
         }
 

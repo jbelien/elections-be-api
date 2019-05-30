@@ -16,6 +16,8 @@ class Entity extends E
     public $name_fr;
     /** @var string */
     public $name_nl;
+    /** @var array */
+    public $municipalities;
 
     public static function fromE(E $e, array $translations): self
     {
@@ -55,5 +57,26 @@ class Entity extends E
         }
 
         return $entity;
+    }
+
+    public function setMunicipalities(array $extensions) : self
+    {
+        if ($this->level === 'K') {
+            $nis = $this->nis;
+            $municipalities = array_filter($extensions, function ($x) use ($nis) {
+                return $x->nisCanton === $nis;
+            });
+
+            foreach ($municipalities as $m) {
+                $this->municipalities[$m->nisMunicipality] = [
+                    'name_de' => $m->name_de,
+                    'name_en' => $m->name_en,
+                    'name_fr' => $m->name_fr,
+                    'name_nl' => $m->name_nl,
+                ];
+            }
+        }
+
+        return $this;
     }
 }
