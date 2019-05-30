@@ -46,7 +46,7 @@ class L
         $l->nisEntity = $record[1];
         $l->type = $record[2];
         $l->level = $record[3];
-        $l->nr =  $record[4] !== 'null' ? intval($record[4]) : null;
+        $l->nr = $record[4] !== 'null' ? intval($record[4]) : null;
         $l->name = strlen($record[5]) > 0 ? $record[5] : null;
         $l->language = strlen($record[6]) > 0 ? $record[6] : null;
         $l->id = $record[7] !== 'null' ? intval($record[7]) : null;

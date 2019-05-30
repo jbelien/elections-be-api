@@ -71,32 +71,32 @@ class Liste
     public function getArray(): array
     {
         return [
-            'file'     => basename($this->file),
+            'file'         => basename($this->file),
             'test'         => $this->test,
-            'metadata' => $this->metadata,
-            'lists'    => $this->lists,
+            'metadata'     => $this->metadata,
+            'lists'        => $this->lists,
         ];
     }
 
-/*
-    public function get(int $id) : ModelEntity
-    {
-        $entities = array_filter($this->entities, function ($e) use ($id) {
-            return $e->id === $id;
-        });
-
-        if (count($entities) === 0) {
-            throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
+    /*
+        public function get(int $id) : ModelEntity
+        {
+            $entities = array_filter($this->entities, function ($e) use ($id) {
+                return $e->id === $id;
+            });
+    
+            if (count($entities) === 0) {
+                throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
+            }
+            if (count($entities) > 1) {
+                throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
+            }
+    
+            $translations = array_filter($this->translations, function ($t) use ($id) {
+                return $t->entity === $id;
+            });
+    
+            return ModelEntity::fromE(current($entities), $translations);
         }
-        if (count($entities) > 1) {
-            throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
-        }
-
-        $translations = array_filter($this->translations, function ($t) use ($id) {
-            return $t->entity === $id;
-        });
-
-        return ModelEntity::fromE(current($entities), $translations);
-    }
-*/
+    */
 }

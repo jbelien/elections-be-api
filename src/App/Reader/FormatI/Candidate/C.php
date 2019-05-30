@@ -53,7 +53,7 @@ class C
         $c->nr = intval($record[8]);
         $c->name = $record[9];
         $c->gender = $record[10];
-        $c->id =  intval($record[11]);
+        $c->id = intval($record[11]);
         $c->birthdate = $record[12];
         $c->idEntity = intval($record[13]);
 

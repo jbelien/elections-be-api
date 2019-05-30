@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
-use App\Reader\FormatI\Candidate\G;
 use App\Reader\FormatI\Candidate\C;
+use App\Reader\FormatI\Candidate\G;
 use Exception;
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -78,25 +78,25 @@ class Candidate
         ];
     }
 
-/*
-    public function get(int $id) : ModelEntity
-    {
-        $entities = array_filter($this->entities, function ($e) use ($id) {
-            return $e->id === $id;
-        });
-
-        if (count($entities) === 0) {
-            throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
+    /*
+        public function get(int $id) : ModelEntity
+        {
+            $entities = array_filter($this->entities, function ($e) use ($id) {
+                return $e->id === $id;
+            });
+    
+            if (count($entities) === 0) {
+                throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
+            }
+            if (count($entities) > 1) {
+                throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
+            }
+    
+            $translations = array_filter($this->translations, function ($t) use ($id) {
+                return $t->entity === $id;
+            });
+    
+            return ModelEntity::fromE(current($entities), $translations);
         }
-        if (count($entities) > 1) {
-            throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
-        }
-
-        $translations = array_filter($this->translations, function ($t) use ($id) {
-            return $t->entity === $id;
-        });
-
-        return ModelEntity::fromE(current($entities), $translations);
-    }
-*/
+    */
 }
