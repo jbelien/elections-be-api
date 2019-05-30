@@ -6,11 +6,11 @@ namespace App\Handler\API;
 
 use App\Model\Candidate as ModelCandidate;
 use App\Reader\FormatI\Candidate;
+use App\Reader\FormatI\Candidate\C;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Reader\FormatI\Candidate\C;
 
 class CandidatesHandler implements RequestHandlerInterface
 {
