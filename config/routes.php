@@ -53,7 +53,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/fmedias/{year:[0-9]{4}}/{type:\w+}', App\Handler\FMediasHandler::class, 'fmedias');
 
     $app->get('/format-i/entity/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntityHandler::class, 'format-i.entity');
-    $app->get('/format-i/groups/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\GroupsHandler::class, 'format-i.groups');
+    $app->get('/format-i/group/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\GroupHandler::class, 'format-i.group');
     $app->get('/format-i/lists/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\ListsHandler::class, 'format-i.lists');
     $app->get('/format-i/candidates/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\CandidatesHandler::class, 'format-i.candidates');
 

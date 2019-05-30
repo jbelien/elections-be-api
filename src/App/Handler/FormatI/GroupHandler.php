@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler\FormatI;
 
-use App\Reader\FormatI\Groups;
+use App\Reader\FormatI\Group;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class GroupsHandler implements RequestHandlerInterface
+class GroupHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -20,9 +20,9 @@ class GroupsHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $groups = (new Groups(intval($year), $type, $test))->getGroups();
+        $group = new Group(intval($year), $type, $test);
 
-        return new JsonResponse($groups, 200, [
+        return new JsonResponse($group->getArray(), 200, [
             'Cache-Control' => 'max-age=86400, public',
         ]);
     }
