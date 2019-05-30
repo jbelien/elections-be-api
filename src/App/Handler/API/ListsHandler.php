@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
-use App\Reader\FormatI\Candidates;
-use App\Reader\FormatI\Lists;
+use App\Reader\FormatI\Liste;
+use App\Reader\FormatI\Liste\L;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use App\Model\Liste as ModelListe;
 
 class ListsHandler implements RequestHandlerInterface
 {
@@ -25,31 +26,29 @@ class ListsHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
         $test = isset($params['test']);
 
-        $lists = (new Lists(intval($year), $type, $test))->getLists();
-        $candidates = (new Candidates(intval($year), $type, $test))->getCandidates();
-
-        $lists = array_map(function ($list) use ($candidates) {
-            $id = $list['id'];
-
-            $list['candidates'] = array_filter($candidates, function ($candidate) use ($id) {
-                return $candidate['list']['id'] === $id;
-            });
-
-            return $list;
-        }, $lists);
+        $list = new Liste(intval($year), $type, $test);
 
         if (!is_null($id)) {
-            $result = $lists[$id];
-        } elseif (!is_null($group)) {
-            $result = array_filter($lists, function ($list) use ($group) {
-                return $list['group']['id'] === intval($group);
-            });
-        } elseif (!is_null($entity)) {
-            $result = array_filter($lists, function ($list) use ($entity) {
-                return $list['entity']['id'] === intval($entity);
-            });
+            $result = $list->get(intval($id));
         } else {
-            $result = $lists;
+            $lists = array_filter($list->getLists(), function (L $l) {
+                return !is_null($l->id);
+            });
+
+            $result = [];
+            foreach ($lists as $l) {
+                $result[$l->id] = $list->get($l->id);
+            }
+
+            if (!is_null($group)) {
+                $result = array_filter($result, function (ModelListe $list) use ($group) {
+                    return $list->idGroup === intval($group);
+                });
+            } elseif (!is_null($entity)) {
+                $result = array_filter($result, function (ModelListe $list) use ($entity) {
+                    return $list->idEntity === intval($entity);
+                });
+            }
         }
 
         return new JsonResponse($result, 200, [

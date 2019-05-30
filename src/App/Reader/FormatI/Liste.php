@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
+use App\Model\Liste as ModelListe;
 use App\Reader\FormatI\Liste\G;
 use App\Reader\FormatI\Liste\L;
 use Exception;
@@ -68,6 +69,11 @@ class Liste
         return $list;
     }
 
+    public function getLists() : array
+    {
+        return $this->lists;
+    }
+
     public function getArray(): array
     {
         return [
@@ -78,25 +84,21 @@ class Liste
         ];
     }
 
-    /*
-        public function get(int $id) : ModelEntity
-        {
-            $entities = array_filter($this->entities, function ($e) use ($id) {
-                return $e->id === $id;
-            });
-    
-            if (count($entities) === 0) {
-                throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
-            }
-            if (count($entities) > 1) {
-                throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
-            }
-    
-            $translations = array_filter($this->translations, function ($t) use ($id) {
-                return $t->entity === $id;
-            });
-    
-            return ModelEntity::fromE(current($entities), $translations);
+    public function get(int $id) : ModelListe
+    {
+        $lists = array_filter($this->lists, function ($l) use ($id) {
+            return $l->id === $id;
+        });
+
+        if (count($lists) === 0) {
+            throw new Exception(sprintf('Invalid entity ID (%d) for type "%s" in %d.', $id, $this->type, $this->year));
         }
-    */
+        // Issue with 2019 election lists:
+        // "PVDA" (1460) is defined twice because of previous name ("PTB-GO !" & "PVDA+")
+        // if (count($lists) > 1) {
+        //     throw new Exception(sprintf('Ambiguous entity ID (%d).', $id));
+        // }
+
+        return ModelListe::fromL(current($lists));
+    }
 }
