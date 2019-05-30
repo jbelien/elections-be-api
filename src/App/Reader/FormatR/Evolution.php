@@ -69,6 +69,7 @@ class Evolution
     {
         $array = [
             'file'     => basename($this->file),
+            'test'     => $this->test,
             'metadata' => $this->metadata,
             'cantons'  => $this->cantons,
         ];
