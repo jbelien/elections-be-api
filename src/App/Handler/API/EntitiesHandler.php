@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\API;
 
+use App\Model\Entity as ModelEntity;
 use App\Reader\FormatI\Entity;
 use App\Reader\FormatI\Extension;
 use Psr\Http\Message\ResponseInterface;
@@ -23,6 +24,7 @@ class EntitiesHandler implements RequestHandlerInterface
 
         $params = $request->getQueryParams();
         $test = isset($params['test']);
+        $geoJSON = isset($params['geojson']);
 
         $entity = new Entity(intval($year), $type, $test);
         $extension = new Extension(intval($year), $type, $test);
@@ -36,19 +38,39 @@ class EntitiesHandler implements RequestHandlerInterface
                 return $entity->level === $level;
             });
 
+            $result = [];
             foreach ($filter as $e) {
                 $result[$e->id] = $entity->get($e->id)->setMunicipalities($extension->getExtensions());
             }
         } else {
             $entities = $entity->getEntities();
 
+            $result = [];
             foreach ($entities as $e) {
                 $result[$e->id] = $entity->get($e->id)->setMunicipalities($extension->getExtensions());
             }
         }
 
-        return new JsonResponse($result, 200, [
+        return new JsonResponse($geoJSON === true ? self::toGeoJSON($result, intval($year)) : $result, 200, [
             'Cache-Control' => 'max-age=86400, public',
         ]);
+    }
+
+    private static function toGeoJSON($result, int $year)
+    {
+        if ($result instanceof ModelEntity) {
+            return $result->toGeoJSON($year);
+        }
+
+        $geoJSON = [
+            'type' => 'FeatureCollection',
+            'features' => [],
+        ];
+
+        foreach ($result as $r) {
+            $geoJSON['features'][] = $r->toGeoJSON($year);
+        }
+
+        return $geoJSON;
     }
 }

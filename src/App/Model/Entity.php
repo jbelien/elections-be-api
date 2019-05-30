@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Reader\FormatI\Entity\E;
+use ErrorException;
 
 class Entity extends E
 {
@@ -16,7 +17,7 @@ class Entity extends E
     public $name_fr;
     /** @var string */
     public $name_nl;
-    /** @var array */
+    /** @var Municipality[] */
     public $municipalities;
 
     public static function fromE(E $e, array $translations): self
@@ -68,15 +69,43 @@ class Entity extends E
             });
 
             foreach ($municipalities as $m) {
-                $this->municipalities[$m->nisMunicipality] = [
-                    'name_de' => $m->name_de,
-                    'name_en' => $m->name_en,
-                    'name_fr' => $m->name_fr,
-                    'name_nl' => $m->name_nl,
-                ];
+                $municipality = Municipality::fromX($m);
+
+                $this->municipalities[$municipality->nis] = $municipality;
             }
         }
 
         return $this;
+    }
+
+    public function toGeoJSON(int $year) : array
+    {
+        if (is_array($this->municipalities) && count($this->municipalities) === 1) {
+            $geometry = current($this->municipalities)->getGeometry($year);
+        } elseif (is_array($this->municipalities) && count($this->municipalities) > 1) {
+            $geometry = [
+                'type' => 'MultiPolygon',
+                'coordinates' => [],
+            ];
+
+            foreach ($this->municipalities as $m) {
+                $g = $m->getGeometry($year);
+
+                if ($g->type === 'Polygon') {
+                    array_push($geometry['coordinates'], $g->coordinates);
+                } elseif ($g->type === 'MultiPolygon') {
+                    $geometry['coordinates'] = array_merge($geometry['coordinates'], $g->coordinates);
+                } else {
+                    throw new ErrorException(sprintf('Invalid geometry type %s.', $g->type));
+                }
+            }
+        }
+
+        return [
+            'type' => 'Feature',
+            'id' => $this->id,
+            'properties' => $this,
+            'geometry' => $geometry ?? null,
+        ];
     }
 }
