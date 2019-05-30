@@ -98,14 +98,13 @@ class Entity
 
     public function getArray(): array
     {
-        $array = [
+        return [
             'file'         => basename($this->file),
+            'test'         => $this->test,
             'metadata'     => $this->metadata,
             'entities'     => $this->entities,
             'translations' => $this->translations,
         ];
-
-        return $array;
     }
 
     public function get(int $id) : ModelEntity

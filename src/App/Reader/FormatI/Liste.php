@@ -70,13 +70,12 @@ class Liste
 
     public function getArray(): array
     {
-        $array = [
+        return [
             'file'     => basename($this->file),
+            'test'         => $this->test,
             'metadata' => $this->metadata,
             'lists'    => $this->lists,
         ];
-
-        return $array;
     }
 
 /*
