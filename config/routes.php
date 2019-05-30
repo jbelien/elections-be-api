@@ -54,7 +54,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/format-i/entity/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\EntityHandler::class, 'format-i.entity');
     $app->get('/format-i/group/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\GroupHandler::class, 'format-i.group');
-    $app->get('/format-i/lists/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\ListsHandler::class, 'format-i.lists');
+    $app->get('/format-i/list/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\ListHandler::class, 'format-i.list');
     $app->get('/format-i/candidates/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\CandidatesHandler::class, 'format-i.candidates');
 
     $app->get('/format-r/evolution/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\EvolutionHandler::class, 'format-r.evolution');
