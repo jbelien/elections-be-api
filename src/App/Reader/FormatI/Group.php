@@ -79,6 +79,7 @@ class Group
         return $array;
     }
 
+/*
     public function get(int $id) : ModelEntity
     {
         $entities = array_filter($this->entities, function ($e) use ($id) {
@@ -98,4 +99,5 @@ class Group
 
         return ModelEntity::fromE(current($entities), $translations);
     }
+*/
 }
