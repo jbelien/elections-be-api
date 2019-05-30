@@ -6,6 +6,7 @@ namespace App\Handler\API;
 
 use App\Model\Entity as ModelEntity;
 use App\Reader\FormatI\Entity;
+use App\Reader\FormatI\Entity\E;
 use App\Reader\FormatI\Extension;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -34,7 +35,7 @@ class EntitiesHandler implements RequestHandlerInterface
         } elseif (!is_null($level)) {
             $entities = $entity->getEntities();
 
-            $filter = array_filter($entities, function ($entity) use ($level) {
+            $filter = array_filter($entities, function (E $entity) use ($level) {
                 return $entity->level === $level;
             });
 
