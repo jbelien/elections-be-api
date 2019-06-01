@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR\Seats;
 
@@ -31,10 +31,5 @@ class L
         $l->women = intval($record[4]);
 
         return $l;
-    }
-
-    public function getEntity()
-    {
-        return new Entity($this->entity);
     }
 }
