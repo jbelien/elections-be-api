@@ -4,65 +4,76 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Groups;
+use App\Reader\FormatR\Seats\L;
+use App\Reader\FormatR\Seats\G;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 class Seats
 {
     private $year;
     private $type;
+
     private $test;
-    private $final;
+    private $testFinal;
 
-    private $seats = [];
+    private $file;
+    private $metadata;
+    private $groups;
 
-    public function __construct(int $year, string $type, bool $test = false, bool $final = false)
+    public function __construct(int $year, string $type, bool $test = false, bool $testFinal = false)
     {
         $this->year = $year;
         $this->type = $type;
+
         $this->test = $test;
-        $this->final = $this->test && $final;
+        $this->testFinal = $this->test && $testFinal;
 
-        $this->seats = $this->read();
-    }
-
-    public function getSeats()
-    {
-        return $this->seats;
-    }
-
-    private function read()
-    {
         if ($this->test === true) {
-            $directory = sprintf('data/%d/test/format-r/%s', $this->year, $this->final ? 'final' : 'intermediate');
+            $this->file = sprintf('data/%d/test/format-r/%s/RSR00000.%s', $this->year, $this->testFinal ? 'final' : 'intermediate', $this->type);
         } else {
-            $directory = sprintf('data/%d/format-r', $this->year);
+            $this->file = sprintf('data/%d/format-r/RSR00000.%s', $this->year, $this->type);
         }
 
-        $seats = [];
+        $this->metadata = $this->readG();
+        $this->groups = $this->readL();
+    }
 
-        $groups = (new Groups($this->year, $this->type, $this->test))->getGroups();
+    private function readG(): G
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
 
-        $file = sprintf('%s/RSR00000.%s', $directory, $this->type);
+        $stmt = (new Statement())->offset(0)->limit(1);
 
-        if (($handle = fopen($file, 'r')) !== false) {
-            while (($data = fgetcsv($handle)) !== false) {
-                if ($data[0] !== 'L') {
-                    continue;
-                }
+        $records = $stmt->process($csv);
 
-                $id = intval($data[1]);
-                $group = $groups[$id];
+        return G::fromArray($records->fetchOne(0));
+    }
 
-                $seats[$id] = [
-                    'group' => $group,
-                    'seats' => intval($data[2]),
-                    'men'   => intval($data[3]),
-                    'women' => intval($data[4]),
-                ];
-            }
-            fclose($handle);
+    private function readL(): array
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(1);
+        $records = $stmt->process($csv);
+
+        $list = [];
+
+        foreach ($records as $record) {
+            $list[] = L::fromArray($record);
         }
 
-        return $seats;
+        return $list;
+    }
+
+    public function getArray(): array
+    {
+        $array = [
+            'file'     => basename($this->file),
+            'test'     => $this->test,
+            'metadata' => $this->metadata,
+            'groups'   => $this->groups,
+        ];
+
+        return $array;
     }
 }

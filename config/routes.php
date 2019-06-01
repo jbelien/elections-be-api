@@ -59,10 +59,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-i/extension/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatI\ExtensionHandler::class, 'format-i.extension');
 
     $app->get('/format-r/evolution/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\EvolutionHandler::class, 'format-r.evolution');
+    $app->get('/format-r/seats/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\SeatsHandler::class, 'format-r.seats');
     // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\ResultsHandler::class, 'format-r.results');
     // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultsDHandler::class, 'format-r.resultsd');
     // $app->get('/format-r/status/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\StatusHandler::class, 'format-r.status');
-    // $app->get('/format-r/seats/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\SeatsHandler::class, 'format-r.seats');
     // $app->get('/format-r/hit/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\HitHandler::class, 'format-r.hit');
 
     $app->get('/votes/candidates/{year:[0-9]{4}}/{type:\w+}/{id:[0-9]+}', App\Handler\VoteCandidatesHandler::class, 'vote.candidate');

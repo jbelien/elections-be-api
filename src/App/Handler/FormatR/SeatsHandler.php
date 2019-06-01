@@ -21,9 +21,9 @@ class SeatsHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
-        $seats = (new Seats(intval($year), $type, $test, $final))->getSeats();
+        $seats = new Seats(intval($year), $type, $test, $final);
 
-        return new JsonResponse($seats, 200, [
+        return new JsonResponse($seats->getArray(), 200, [
             'Cache-Control' => 'max-age=300, public',
         ]);
     }
