@@ -1,91 +1,83 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidates;
-use App\Reader\Municipality;
+use App\Reader\FormatR\Hit\C;
+use App\Reader\FormatR\Hit\G;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 class Hit
 {
     private $year;
     private $type;
     private $level;
+    private $nis;
+
     private $test;
-    private $final;
+    private $testFinal;
 
-    private $hit = [];
+    private $file;
+    private $metadata;
+    private $candidates;
 
-    public function __construct(int $year, string $type, string $level, bool $test = false, bool $final = false)
+    public function __construct(int $year, string $type, string $level, string $nis, bool $test = false, bool $testFinal = false)
     {
         $this->year = $year;
         $this->type = $type;
         $this->level = $level;
+        $this->nis = $nis;
+
         $this->test = $test;
-        $this->final = $this->test && $final;
+        $this->testFinal = $this->test && $testFinal;
 
-        $this->hit = $this->read();
-    }
-
-    public function getHit()
-    {
-        return $this->hit;
-    }
-
-    private function read()
-    {
         if ($this->test === true) {
-            $directory = sprintf('data/%d/test/format-r/%s', $this->year, $this->final ? 'final' : 'intermediate');
+            $this->file = sprintf('data/%d/test/format-r/%s/RH%s%s.%s', $this->year, $this->testFinal ? 'final' : 'intermediate', $this->level, $this->nis, $this->type);
         } else {
-            $directory = sprintf('data/%d/format-r', $this->year);
+            $this->file = sprintf('data/%d/format-r/RH%s%s.%s', $this->year, $this->level, $this->nis, $this->type);
         }
 
-        $status = [];
+        $this->metadata = $this->readG();
+        $this->candidates = $this->readC();
+    }
 
-        $municipalities = (new Municipality($this->year))->getMunicipalities();
-        $candidates = (new Candidates($this->year, $this->type, $this->test))->getCandidates();
+    private function readG(): G
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
 
-        $glob = glob(sprintf('%s/RH%s*.%s', $directory, $this->level, $this->type), GLOB_BRACE);
+        $stmt = (new Statement())->offset(0)->limit(1);
 
-        foreach ($glob as $file) {
-            preg_match('/^RH([A-Z])([0-9]{5})\.([A-Z]{2})$/', basename($file), $matches);
+        $records = $stmt->process($csv);
 
-            $nis = $matches[2];
+        return G::fromArray($records->fetchOne(0));
+    }
 
-            if ($nis === '00000') {
-                $status[$nis] = [
-                    'hit' => [],
-                ];
-            } else {
-                $municipality = $municipalities[$nis];
+    private function readC(): array
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(1);
+        $records = $stmt->process($csv);
 
-                $status[$nis] = [
-                    'municipality' => $municipality,
-                    'hit'          => [],
-                ];
-            }
+        $list = [];
 
-            if (($handle = fopen($file, 'r')) !== false) {
-                while (($data = fgetcsv($handle)) !== false) {
-                    if ($data[0] !== 'C') {
-                        continue;
-                    }
-
-                    $id = intval($data[1]);
-                    $candidate = $candidates[$id];
-
-                    $status[$nis]['hit'][] = [
-                        'candidate'  => $candidate,
-                        'votes'      => intval($data[2]),
-                        'percentage' => floatval($data[3]),
-                        'status'     => $data[4],
-                    ];
-                }
-                fclose($handle);
-            }
+        foreach ($records as $record) {
+            $list[] = C::fromArray($record);
         }
 
-        return $status;
+        return $list;
+    }
+
+    public function getArray(): array
+    {
+        $array = [
+            'file'       => basename($this->file),
+            'test'       => $this->test,
+            'metadata'   => $this->metadata,
+            'candidates' => $this->candidates,
+        ];
+
+        return $array;
     }
 }

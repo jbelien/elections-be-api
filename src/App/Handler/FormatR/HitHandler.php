@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Handler\FormatR;
 
@@ -66,7 +66,7 @@ class HitHandler implements RequestHandlerInterface
                 }
                 break;
             case 'WL': // Parlement régional wallon / Waals Parlement
-                if (!in_array($level, ['C', 'R'])) {
+                if (!in_array($level, ['C', 'P', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -76,9 +76,24 @@ class HitHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
-        $hit = (new Hit(intval($year), $type, $level, $test, $final))->getHit();
+        if ($test === true) {
+            $glob = glob(sprintf('data/%d/test/format-r/%s/RH%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type));
+        } else {
+            $glob = glob(sprintf('data/%d/format-r/RH%s*.%s', $year, $level, $type));
+        }
 
-        return new JsonResponse($hit, 200, [
+        $hits = [];
+
+        foreach ($glob as $file) {
+            $fname = basename($file);
+
+            $pattern = sprintf('/RH%s([0-9]+)\.%s/', $level, $type);
+            preg_match($pattern, $fname, $matches);
+
+            $hits[] = (new Hit(intval($year), $type, $level, $matches[1], $test, $final))->getArray();
+        }
+
+        return new JsonResponse(count($hits) === 1 ? current($hits) : $hits, 200, [
             'Cache-Control' => 'max-age=300, public',
         ]);
     }
