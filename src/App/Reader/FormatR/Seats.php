@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatR\Seats\L;
 use App\Reader\FormatR\Seats\G;
+use App\Reader\FormatR\Seats\L;
 use League\Csv\Reader;
 use League\Csv\Statement;
 
