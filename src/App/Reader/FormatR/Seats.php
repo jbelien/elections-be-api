@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
@@ -68,12 +68,12 @@ class Seats
     public function getArray(): array
     {
         $array = [
-            'file'     => basename($this->file),
+            'file'       => basename($this->file),
             'year'       => $this->year,
-            'nis'       => $this->nis,
-            'test'     => $this->test,
-            'metadata' => $this->metadata,
-            'groups'   => $this->groups,
+            'nis'        => $this->nis,
+            'test'       => $this->test,
+            'metadata'   => $this->metadata,
+            'groups'     => $this->groups,
         ];
 
         return $array;

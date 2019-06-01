@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatI;
 
@@ -100,8 +100,8 @@ class Entity
     {
         return [
             'file'         => basename($this->file),
-            'year'       => $this->year,
-            'type'       => $this->type,
+            'year'         => $this->year,
+            'type'         => $this->type,
             'test'         => $this->test,
             'metadata'     => $this->metadata,
             'entities'     => $this->entities,
