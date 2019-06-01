@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatI;
 
@@ -69,7 +69,7 @@ class Liste
         return $list;
     }
 
-    public function getLists() : array
+    public function getLists(): array
     {
         return $this->lists;
     }
@@ -78,13 +78,15 @@ class Liste
     {
         return [
             'file'         => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
             'test'         => $this->test,
             'metadata'     => $this->metadata,
             'lists'        => $this->lists,
         ];
     }
 
-    public function get(int $id) : ModelListe
+    public function get(int $id): ModelListe
     {
         $lists = array_filter($this->lists, function ($l) use ($id) {
             return $l->id === $id;

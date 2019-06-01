@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatI;
 
@@ -91,7 +91,7 @@ class Entity
         return $list;
     }
 
-    public function getEntities() : array
+    public function getEntities(): array
     {
         return $this->entities;
     }
@@ -100,6 +100,8 @@ class Entity
     {
         return [
             'file'         => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
             'test'         => $this->test,
             'metadata'     => $this->metadata,
             'entities'     => $this->entities,
@@ -107,7 +109,7 @@ class Entity
         ];
     }
 
-    public function get(int $id) : ModelEntity
+    public function get(int $id): ModelEntity
     {
         $entities = array_filter($this->entities, function ($e) use ($id) {
             return $e->id === $id;

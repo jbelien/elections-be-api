@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatI;
 
@@ -69,7 +69,7 @@ class Group
         return $list;
     }
 
-    public function getGroups() : array
+    public function getGroups(): array
     {
         return $this->groups;
     }
@@ -78,13 +78,15 @@ class Group
     {
         return [
             'file'         => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
             'test'         => $this->test,
             'metadata'     => $this->metadata,
             'groups'       => $this->groups,
         ];
     }
 
-    public function get(int $id) : ModelGroup
+    public function get(int $id): ModelGroup
     {
         $groups = array_filter($this->groups, function ($g) use ($id) {
             return $g->id === $id;

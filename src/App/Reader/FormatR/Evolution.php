@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR;
 
@@ -69,6 +69,8 @@ class Evolution
     {
         $array = [
             'file'     => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
             'test'     => $this->test,
             'metadata' => $this->metadata,
             'cantons'  => $this->cantons,

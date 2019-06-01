@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR;
 
@@ -73,6 +73,10 @@ class Hit
     {
         $array = [
             'file'       => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
+            'level'       => $this->level,
+            'nis'       => $this->nis,
             'test'       => $this->test,
             'metadata'   => $this->metadata,
             'candidates' => $this->candidates,
