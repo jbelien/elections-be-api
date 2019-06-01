@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR\Evolution;
 
@@ -46,13 +46,8 @@ class C
         return $c;
     }
 
-    public function getDateTime() : DateTime
+    public function getDateTime(): DateTime
     {
-        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date.' '.$this->time);
-    }
-
-    public function getEntity()
-    {
-        return new Entity($this->entity);
+        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date . ' ' . $this->time);
     }
 }
