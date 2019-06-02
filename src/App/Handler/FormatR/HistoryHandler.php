@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Handler\FormatR;
 
-use App\Reader\FormatR\Status;
+use App\Reader\FormatR\History;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
-class StatusHandler implements RequestHandlerInterface
+class HistoryHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -41,7 +41,7 @@ class StatusHandler implements RequestHandlerInterface
                 }
                 break;
             case 'DE': // Parlement de la Communauté germanophone / Parlement van de Duitstalige Gemeenschap
-                if (!in_array($level, ['G', 'R'])) {
+                if (!in_array($level, ['G'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -51,7 +51,7 @@ class StatusHandler implements RequestHandlerInterface
                 }
                 break;
             case 'EU': // Parlement européen / Europese Parlement
-                if (!in_array($level, ['C', 'P', 'L', 'R'])) {
+                if (!in_array($level, ['C', 'L', 'P', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -66,7 +66,7 @@ class StatusHandler implements RequestHandlerInterface
                 }
                 break;
             case 'WL': // Parlement régional wallon / Waals Parlement
-                if (!in_array($level, ['C', 'R', 'P'])) {
+                if (!in_array($level, ['C', 'P', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -76,11 +76,24 @@ class StatusHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
-        $status = new Status(intval($year), $type, $level, $test, $final);
+        if ($test === true) {
+            $glob = glob(sprintf('data/%d/test/format-r/%s/RG%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type));
+        } else {
+            $glob = glob(sprintf('data/%d/format-r/RG%s*.%s', $year, $level, $type));
+        }
 
-        $statuses = $status->getStatus();
+        $hits = [];
 
-        return new JsonResponse($statuses, 200, [
+        foreach ($glob as $file) {
+            $fname = basename($file);
+
+            $pattern = sprintf('/RG%s([0-9]+)\.%s/', $level, $type);
+            preg_match($pattern, $fname, $matches);
+
+            $hits[] = (new History(intval($year), $type, $level, $matches[1], $test, $final))->getArray();
+        }
+
+        return new JsonResponse(count($hits) === 1 ? current($hits) : $hits, 200, [
             'Cache-Control' => 'max-age=300, public',
         ]);
     }
