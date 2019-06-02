@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR\Seats;
 
@@ -20,7 +20,7 @@ class L
     public static function fromArray(array $record): self
     {
         if ($record[0] !== 'L') {
-            throw new ErrorException('Invalid C record');
+            throw new ErrorException('Invalid L record');
         }
 
         $l = new self();
