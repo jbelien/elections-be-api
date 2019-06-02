@@ -1,11 +1,11 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatR\History\H;
 use App\Reader\FormatR\History\G;
+use App\Reader\FormatR\History\H;
 use League\Csv\Reader;
 use League\Csv\Statement;
 

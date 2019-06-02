@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Reader\FormatR\History;
 
@@ -48,6 +48,6 @@ class G
 
     public function getDateTime(): DateTime
     {
-        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date . ' ' . $this->time);
+        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date.' '.$this->time);
     }
 }
