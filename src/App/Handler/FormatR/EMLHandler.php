@@ -1,15 +1,15 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Handler\FormatR;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\XmlResponse;
-use Zend\Diactoros\Response\EmptyResponse;
 
 class EMLHandler implements RequestHandlerInterface
 {
@@ -29,8 +29,8 @@ class EMLHandler implements RequestHandlerInterface
         }
 
         if (!is_null($fname)) {
-            if (file_exists($directory . '/' . $fname . '.EML')) {
-                return new XmlResponse(file_get_contents($directory . '/' . $fname . '.EML'), 200, [
+            if (file_exists($directory.'/'.$fname.'.EML')) {
+                return new XmlResponse(file_get_contents($directory.'/'.$fname.'.EML'), 200, [
                     'Cache-Control' => 'max-age=300, public',
                 ]);
             } else {
@@ -38,7 +38,7 @@ class EMLHandler implements RequestHandlerInterface
             }
         }
 
-        $glob = glob($directory . '/*.EML');
+        $glob = glob($directory.'/*.EML');
         $files = array_map(function ($path) {
             return basename($path);
         }, $glob);
