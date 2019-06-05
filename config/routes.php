@@ -39,6 +39,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\ResultsHandler::class, 'format-r.results');
     // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultsDHandler::class, 'format-r.resultsd');
 
+    $app->get('/format-r/eml/{year:[0-9]{4}}[/{fname:\w+}]', App\Handler\FormatR\EMLHandler::class, 'format-r.eml');
+
     // $app->get('/votes/candidates/{year:[0-9]{4}}/{type:\w+}/{id:[0-9]+}', App\Handler\VoteCandidatesHandler::class, 'vote.candidate');
     // $app->get('/votes/candidates/{year:[0-9]{4}}/{type:\w+}/list-{list:[0-9]+}/{type:(effective|substitues)}/{nr:[0-9]+}', App\Handler\VoteCandidateHandler::class, 'vote.candidate');
 };
