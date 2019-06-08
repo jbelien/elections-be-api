@@ -1,124 +1,131 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR;
 
-use App\Reader\FormatI\Candidates;
-use App\Reader\FormatI\Lists;
+use App\Reader\FormatR\Result\C;
+use App\Reader\FormatR\Result\G;
+use App\Reader\FormatR\Result\L;
+use App\Reader\FormatR\Result\S;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 class Result
 {
     private $year;
     private $type;
+    private $status;
+    private $level;
+    private $nis;
+    private $c;
+
     private $test;
-    private $final;
+    private $testFinal;
 
-    private $results = [];
+    private $file;
+    private $metadata;
+    private $count;
+    private $lists;
+    private $candidates;
 
-    public function __construct(int $year, string $type, bool $test = false, bool $final = false)
+    public function __construct(int $year, string $type, int $status, string $level, string $nis, bool $test = false, bool $testFinal = false, string $c = null)
     {
         $this->year = $year;
+        $this->status = $status;
         $this->type = $type;
+        $this->level = $level;
+        $this->nis = $nis;
+        $this->c = $c;
+
         $this->test = $test;
-        $this->final = $this->test && $final;
+        $this->testFinal = $this->test && $testFinal;
 
-        $this->results = $this->read();
-    }
-
-    public function getResults()
-    {
-        return $this->results;
-    }
-
-    private function read()
-    {
         if ($this->test === true) {
-            $directory = sprintf('data/%d/test/format-r/%s', $this->year, $this->final ? 'final' : 'intermediate');
+            $directory = sprintf('data/%d/test/format-r/%s/', $this->year, $this->testFinal ? 'final' : 'intermediate');
         } else {
-            $directory = sprintf('data/%d/format-r', $this->year);
+            $directory = sprintf('data/%d/format-r/', $this->year);
         }
 
-        $results = [];
-
-        $candidates = (new Candidates($this->year, $this->type, $this->test))->getCandidates();
-        $lists = (new Lists($this->year, $this->type, $this->test))->getLists();
-
-        switch ($this->type) {
-            case 'BR':
-                $fname = 'R{0,1}R21004';
-                break;
-            case 'DE':
-                $fname = 'R{0,1}G63023';
-                break;
-            case 'CK':
-            case 'EU':
-            case 'VL':
-            case 'WL':
-                $fname = 'R{0,1}R00000';
-                break;
-            case 'PR':
-            case 'CG':
-            case 'CS':
-                // To Find out
-                break;
+        if ($this->status === 0 && in_array($this->level, ['K', 'M', 'I']) && !is_null($this->c)) {
+            $this->file = $directory . sprintf('R%d%s%s_%s.%s', $this->status, $this->level, $this->nis, $this->c, $this->type);
+        } else {
+            $this->file = $directory . sprintf('R%d%s%s.%s', $this->status, $this->level, $this->nis, $this->type);
         }
 
-        $glob = glob(sprintf('%s/%s.%s', $directory, $fname, $this->type), GLOB_BRACE);
+        $this->metadata = $this->readG();
+        $this->count = $this->readS();
+        $this->lists = $this->readL();
+        $this->candidates = $this->readC();
+    }
 
-        if (count($glob) > 0) {
-            $file = current($glob);
+    private function readG(): G
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(0)->limit(1);
+        $records = $stmt->process($csv);
 
-            if (($handle = fopen($file, 'r')) !== false) {
-                while (($data = fgetcsv($handle)) !== false) {
-                    if ($data[0] !== 'G' && $data[0] !== 'S' && $data[0] !== 'L' && $data[0] !== 'C') {
-                        continue;
-                    }
+        return G::fromArray($records->fetchOne(0));
+    }
 
-                    if ($data[0] === 'G') {
-                        $results['date'] = $data[5];
-                        $results['time'] = $data[6];
-                    } elseif ($data[0] === 'S') {
-                        $results['count'] = [
-                            'registered_ballot' => [
-                                'BB_E1_E2' => intval($data[1]),
-                                'E3_E4'    => intval($data[3]),
-                                'E5'       => intval($data[5]),
-                            ],
-                            'null_blank_ballot' => [
-                                'BB_E1_E2_E5' => intval($data[2]),
-                                'E3_E4'       => intval($data[4]),
-                            ],
-                        ];
-                    } elseif ($data[0] === 'L') {
-                        $nr = intval($data[1]);
-                        $group = intval($data[9]);
+    private function readS(): S
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(1)->limit(1);
+        $records = $stmt->process($csv);
 
-                        $list = current(array_filter($lists, function ($l) use ($group, $nr) {
-                            return $l['group']['id'] === $group && $l['nr'] === $nr;
-                        }));
+        return S::fromArray($records->fetchOne(0));
+    }
 
-                        $results[$list['id']] = [
-                            'list'       => $list,
-                            'status'     => $data[2],
-                            'seats'      => intval($data[8]),
-                            'candidates' => [],
-                        ];
-                    } elseif ($data[0] === 'C') {
-                        $id = intval($data[10]);
+    private function readL(): array
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(2);
+        $records = $stmt->process($csv);
 
-                        $results[$list['id']]['candidates'][$id] = [
-                            'candidate'           => $candidates[$id],
-                            'votes'               => intval($data[4]),
-                            'official_order_nr'   => strlen($data[8]) > 0 ? intval($data[8]) : null,
-                            'substitute_order_nr' => strlen($data[9]) > 0 ? intval($data[9]) : null,
-                        ];
-                    }
-                }
-                fclose($handle);
+        $list = [];
+
+        foreach ($records as $record) {
+            if ($record[0] === 'L') {
+                $list[] = L::fromArray($record);
             }
         }
 
-        return $results;
+        return $list;
+    }
+
+    private function readC(): array
+    {
+        $csv = Reader::createFromPath($this->file, 'r');
+        $stmt = (new Statement())->offset(2);
+        $records = $stmt->process($csv);
+
+        $list = [];
+
+        foreach ($records as $record) {
+            if ($record[0] === 'C') {
+                $list[] = C::fromArray($record);
+            }
+        }
+
+        return $list;
+    }
+
+    public function getArray(): array
+    {
+        $array = [
+            'file'       => basename($this->file),
+            'year'       => $this->year,
+            'type'       => $this->type,
+            'level'      => $this->level,
+            'nis'        => $this->nis,
+            'test'       => $this->test,
+            'metadata'   => $this->metadata,
+            'count'      => $this->count,
+            'lists'      => $this->lists,
+            'candidates' => $this->candidates,
+        ];
+
+        return $array;
     }
 }

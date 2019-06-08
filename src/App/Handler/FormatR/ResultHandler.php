@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Handler\FormatR;
 
-use App\Reader\FormatR\ResultD;
+use App\Reader\FormatR\Result;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
-class ResultsDHandler implements RequestHandlerInterface
+class ResultHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -51,7 +51,7 @@ class ResultsDHandler implements RequestHandlerInterface
                 }
                 break;
             case 'EU': // Parlement européen / Europese Parlement
-                if (!in_array($level, ['K', 'C', 'P', 'L', 'R'])) {
+                if (!in_array($level, ['K', 'P', 'C', 'L', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -61,12 +61,12 @@ class ResultsDHandler implements RequestHandlerInterface
                 }
                 break;
             case 'VL': // Parlement flamand / Vlaams Parlement
-                if (!in_array($level, ['K', 'C', 'P', 'R'])) {
+                if (!in_array($level, ['K', 'C', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
             case 'WL': // Parlement régional wallon / Waals Parlement
-                if (!in_array($level, ['K', 'C', 'R'])) {
+                if (!in_array($level, ['K', 'C', 'P', 'R'])) {
                     return new EmptyResponse(404);
                 }
                 break;
@@ -76,11 +76,60 @@ class ResultsDHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
-        $result = new ResultD(intval($year), $type, $level, $test, $final);
+        if ($test === true) {
+            $glob = glob(sprintf('data/%d/test/format-r/%s/R{0,1}%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type), GLOB_BRACE);
+        } else {
+            $glob = glob(sprintf('data/%d/format-r/R{0,1}%s*.%s', $year, $level, $type), GLOB_BRACE);
+        }
 
-        $results = $result->getResults();
+        $files = [];
+        $count0 = [];
 
-        return new JsonResponse($results, 200, [
+        foreach ($glob as $file) {
+            $fname = basename($file);
+
+            $pattern = sprintf('/R([0-1])%s([0-9]+)(?:_([0-9]+))?\.%s/', $level, $type);
+            preg_match($pattern, $fname, $matches);
+
+            if (intval($matches[1]) === 0 && in_array($level, ['K', 'M', 'I'])) {
+                $count = intval($matches[3]);
+
+                if (!isset($count0[$matches[2]]) || $count > $count0[$matches[2]]) {
+                    $count0[$matches[2]] = $count;
+                }
+            } else {
+                $files[] = $fname;
+            }
+        }
+
+        foreach ($count0 as $nis => $count) {
+            $fname1 = sprintf('R1%s%s.%s', $level, $nis, $type);
+            $fname0 = sprintf('R0%s%s_%s.%s', $level, $nis, str_pad((string)$count, 3, '0', STR_PAD_LEFT), $type);
+
+            if (!in_array($fname1, $files)) {
+                $files[] = $fname0;
+            }
+        }
+
+        $results = [];
+
+        foreach ($files as $fname) {
+            $pattern = sprintf('/R([0-1])%s([0-9]+)(?:_([0-9]+))?\.%s/', $level, $type);
+            preg_match($pattern, $fname, $matches);
+
+            $results[] = (new Result(
+                intval($year),
+                $type,
+                intval($matches[1]),
+                $level,
+                $matches[2],
+                $test,
+                $final,
+                $matches[3] ?? null
+            ))->getArray();
+        }
+
+        return new JsonResponse(count($results) === 1 ? current($results) : $results, 200, [
             'Cache-Control' => 'max-age=300, public',
         ]);
     }

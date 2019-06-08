@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
@@ -36,8 +36,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-r/seats/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\SeatsHandler::class, 'format-r.seats');
     $app->get('/format-r/hit/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\HitHandler::class, 'format-r.hit');
     $app->get('/format-r/history/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\HistoryHandler::class, 'format-r.history');
-    // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\ResultsHandler::class, 'format-r.results');
-    // $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultsDHandler::class, 'format-r.resultsd');
+    $app->get('/format-r/results/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultHandler::class, 'format-r.result');
 
     $app->get('/format-r/eml/{year:[0-9]{4}}[/{fname:\w+}]', App\Handler\FormatR\EMLHandler::class, 'format-r.eml');
 
