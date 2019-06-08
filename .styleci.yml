@@ -1,0 +1,12 @@
+preset: recommended
+
+risky: true
+
+enabled:
+  - concat_with_spaces
+  - declare_strict_types
+  - strict_comparison
+
+disabled:
+  - concat_without_spaces
+  - declare_equal_normalize
