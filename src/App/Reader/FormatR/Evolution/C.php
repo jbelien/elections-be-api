@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR\Evolution;
 
@@ -9,7 +9,7 @@ use ErrorException;
 
 class C
 {
-    /** @var int N° ins. du canton. */
+    /** @var string N° ins. du canton. */
     public $nis;
     /** @var string Type d’élection. */
     public $type;
@@ -34,7 +34,7 @@ class C
 
         $c = new self();
 
-        $c->nis = intval($record[1]);
+        $c->nis = $record[1];
         $c->type = $record[2];
         $c->status = $record[3];
         $c->countProcessedStations = intval($record[4]);
@@ -48,6 +48,6 @@ class C
 
     public function getDateTime(): DateTime
     {
-        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date.' '.$this->time);
+        return DateTime::createFromFormat('d/m/Y H:i:s', $this->date . ' ' . $this->time);
     }
 }

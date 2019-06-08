@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Reader\FormatR\Result;
 
@@ -30,7 +30,7 @@ class L
     public $subIdgroup;
     /** @var int|null Nombre d’échevins acquis. */
     public $alderman;
-    /** @var int|null INS du collège des listes. */
+    /** @var string|null INS du collège des listes. */
     public $nis;
 
     public static function fromArray(array $record): self
