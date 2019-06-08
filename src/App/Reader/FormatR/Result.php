@@ -48,9 +48,9 @@ class Result
         }
 
         if ($this->status === 0 && in_array($this->level, ['K', 'M', 'I']) && !is_null($this->c)) {
-            $this->file = $directory.sprintf('R%d%s%s_%s.%s', $this->status, $this->level, $this->nis, $this->c, $this->type);
+            $this->file = $directory . sprintf('R%d%s%s_%s.%s', $this->status, $this->level, $this->nis, $this->c, $this->type);
         } else {
-            $this->file = $directory.sprintf('R%d%s%s.%s', $this->status, $this->level, $this->nis, $this->type);
+            $this->file = $directory . sprintf('R%d%s%s.%s', $this->status, $this->level, $this->nis, $this->type);
         }
 
         $this->metadata = $this->readG();
