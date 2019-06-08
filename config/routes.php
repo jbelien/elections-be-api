@@ -38,6 +38,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/format-r/history/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\HistoryHandler::class, 'format-r.history');
     $app->get('/format-r/result/{year:[0-9]{4}}/{type:\w+}/{level:\w+}', App\Handler\FormatR\ResultHandler::class, 'format-r.result');
     $app->get('/format-r/extension/evolution/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\Extension\EvolutionHandler::class, 'format-r.extension.evolution');
+    $app->get('/format-r/extension/result/{year:[0-9]{4}}/{type:\w+}', App\Handler\FormatR\Extension\ResultHandler::class, 'format-r.extension.result');
 
     $app->get('/format-r/eml/{year:[0-9]{4}}[/{fname:\w+}]', App\Handler\FormatR\EMLHandler::class, 'format-r.eml');
 
