@@ -29,8 +29,8 @@ class EMLHandler implements RequestHandlerInterface
         }
 
         if (!is_null($fname)) {
-            if (file_exists($directory.'/'.$fname.'.EML')) {
-                return new XmlResponse(file_get_contents($directory.'/'.$fname.'.EML'), 200, [
+            if (file_exists($directory . '/' . $fname . '.EML')) {
+                return new XmlResponse(file_get_contents($directory . '/' . $fname . '.EML'), 200, [
                     'Cache-Control' => 'max-age=300, public',
                 ]);
             } else {
@@ -38,7 +38,7 @@ class EMLHandler implements RequestHandlerInterface
             }
         }
 
-        $glob = glob($directory.'/*.EML');
+        $glob = glob($directory . '/*.EML');
         $files = array_map(function ($path) {
             return basename($path);
         }, $glob);
