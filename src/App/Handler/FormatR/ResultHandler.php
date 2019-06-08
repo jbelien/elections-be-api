@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Handler\FormatR;
 
@@ -104,7 +104,7 @@ class ResultHandler implements RequestHandlerInterface
 
         foreach ($count0 as $nis => $count) {
             $fname1 = sprintf('R1%s%s.%s', $level, $nis, $type);
-            $fname0 = sprintf('R0%s%s_%s.%s', $level, $nis, str_pad((string)$count, 3, '0', STR_PAD_LEFT), $type);
+            $fname0 = sprintf('R0%s%s_%s.%s', $level, $nis, str_pad((string) $count, 3, '0', STR_PAD_LEFT), $type);
 
             if (!in_array($fname1, $files)) {
                 $files[] = $fname0;
