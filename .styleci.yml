@@ -8,5 +8,6 @@ enabled:
   - strict_comparison
 
 disabled:
+  - cast_spaces
   - concat_without_spaces
   - declare_equal_normalize
