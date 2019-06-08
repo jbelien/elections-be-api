@@ -9,7 +9,7 @@ use ErrorException;
 class C
 {
     /** @var int Identifiant du candidat. */
-    public $idCandidate;
+    public $id;
     /** @var int Nombre de votes de préférence. */
     public $votes;
     /** @var int Taux de pénétration. */
@@ -25,7 +25,7 @@ class C
 
         $c = new self();
 
-        $c->idCandidate = intval($record[1]);
+        $c->id = intval($record[1]);
         $c->votes = intval($record[2]);
         $c->rate = intval($record[3]);
         $c->status = $record[4];
