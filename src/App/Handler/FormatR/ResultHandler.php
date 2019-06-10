@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Handler\FormatR;
 
@@ -76,39 +76,57 @@ class ResultHandler implements RequestHandlerInterface
         $test = isset($params['test']);
         $final = $test && isset($params['final']);
 
+        $files = [];
+
         if ($test === true) {
-            $glob = glob(sprintf('data/%d/test/format-r/%s/R{0,1}%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type), GLOB_BRACE);
+            $glob = glob(sprintf('data/%d/test/format-r/%s/R1%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type), GLOB_BRACE);
         } else {
-            $glob = glob(sprintf('data/%d/format-r/R{0,1}%s*.%s', $year, $level, $type), GLOB_BRACE);
+            $glob = glob(sprintf('data/%d/format-r/R1%s*.%s', $year, $level, $type), GLOB_BRACE);
         }
 
-        $files = [];
-        $count0 = [];
+        $status1 = [];
 
         foreach ($glob as $file) {
             $fname = basename($file);
 
-            $pattern = sprintf('/R([0-1])%s([0-9]+)(?:_([0-9]+))?\.%s/', $level, $type);
+            $pattern = sprintf('/R1%s([0-9]+)?\.%s/', $level, $type);
             preg_match($pattern, $fname, $matches);
 
-            if (intval($matches[1]) === 0 && in_array($level, ['K', 'M', 'I'])) {
-                $count = intval($matches[3]);
+            $files[] = $fname;
+            $status1[] = $matches[1];
+        }
 
-                if (!isset($count0[$matches[2]]) || $count > $count0[$matches[2]]) {
-                    $count0[$matches[2]] = $count;
+        if ($test === true) {
+            $glob = glob(sprintf('data/%d/test/format-r/%s/R0%s*.%s', $year, $final ? 'final' : 'intermediate', $level, $type), GLOB_BRACE);
+        } else {
+            $glob = glob(sprintf('data/%d/format-r/R0%s*.%s', $year, $level, $type), GLOB_BRACE);
+        }
+
+        $status0 = [];
+
+        foreach ($glob as $file) {
+            $fname = basename($file);
+
+            $pattern = sprintf('/R0%s([0-9]+)(?:_([0-9]+))?\.%s/', $level, $type);
+            preg_match($pattern, $fname, $matches);
+
+            if (in_array($matches[1], $status1)) {
+                continue;
+            }
+
+            if (in_array($level, ['K', 'M', 'I'])) {
+                $count = intval($matches[2]);
+
+                if (!isset($status0[$matches[1]]) || $count > $status0[$matches[1]]) {
+                    $status0[$matches[1]] = $count;
                 }
             } else {
                 $files[] = $fname;
             }
         }
 
-        foreach ($count0 as $nis => $count) {
-            $fname1 = sprintf('R1%s%s.%s', $level, $nis, $type);
-            $fname0 = sprintf('R0%s%s_%s.%s', $level, $nis, str_pad((string) $count, 3, '0', STR_PAD_LEFT), $type);
-
-            if (!in_array($fname1, $files)) {
-                $files[] = $fname0;
-            }
+        foreach ($status0 as $nis => $count) {
+            $files[] = sprintf('R0%s%s_%s.%s', $level, $nis, str_pad((string)$count, 3, '0', STR_PAD_LEFT), $type);
         }
 
         $results = [];
