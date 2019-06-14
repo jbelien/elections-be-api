@@ -7,8 +7,8 @@ namespace App\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\JsonResponse;
 use function time;
+use Zend\Diactoros\Response\JsonResponse;
 
 class PingHandler implements RequestHandlerInterface
 {
