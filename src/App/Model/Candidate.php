@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Model;
 
@@ -35,7 +35,7 @@ class Candidate
         $candidate = new self();
 
         $candidate->id = $c->id;
-        $candidate->type = $c->type;
+        $candidate->type = $c->typeCandidate;
         $candidate->level = $c->level;
         $candidate->nr = $c->nr;
         $candidate->name = $c->name;
