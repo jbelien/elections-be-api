@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Model;
 
@@ -60,7 +60,7 @@ class Entity extends E
         return $entity;
     }
 
-    public function setMunicipalities(array $extensions) : self
+    public function setMunicipalities(array $extensions): self
     {
         if ($this->level === 'K') {
             $nis = $this->nis;
@@ -78,7 +78,7 @@ class Entity extends E
         return $this;
     }
 
-    public function toGeoJSON(int $year) : array
+    public function toGeoJSON(int $year): array
     {
         if (is_array($this->municipalities) && count($this->municipalities) === 1) {
             $geometry = current($this->municipalities)->getGeometry($year);
@@ -91,12 +91,14 @@ class Entity extends E
             foreach ($this->municipalities as $m) {
                 $g = $m->getGeometry($year);
 
-                if ($g->type === 'Polygon') {
-                    array_push($geometry['coordinates'], $g->coordinates);
-                } elseif ($g->type === 'MultiPolygon') {
-                    $geometry['coordinates'] = array_merge($geometry['coordinates'], $g->coordinates);
-                } else {
-                    throw new ErrorException(sprintf('Invalid geometry type %s.', $g->type));
+                if (!is_null($g)) {
+                    if ($g->type === 'Polygon') {
+                        array_push($geometry['coordinates'], $g->coordinates);
+                    } elseif ($g->type === 'MultiPolygon') {
+                        $geometry['coordinates'] = array_merge($geometry['coordinates'], $g->coordinates);
+                    } else {
+                        throw new ErrorException(sprintf('Invalid geometry type %s.', $g->type));
+                    }
                 }
             }
         }

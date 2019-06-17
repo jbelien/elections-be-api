@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Model;
 
@@ -41,6 +41,6 @@ class Municipality
             return $m->id === $nis;
         }));
 
-        return $mun->geometry;
+        return $mun !== false ? $mun->geometry : null;
     }
 }
