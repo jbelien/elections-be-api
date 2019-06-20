@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
@@ -13,7 +13,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/entities/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\EntitiesHandler::class, 'api.entities');
     $app->get('/entities/{year:[0-9]{4}}/{type:\w+}/level/{level:\w+}', App\Handler\API\EntitiesHandler::class, 'api.entities.level');
 
-    $app->get('/groups/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\GroupsHandler::class, 'api.groups');
+    $app->get('/groups/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\GroupsHandler::class, 'groups');
 
     $app->get('/lists/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\ListsHandler::class, 'api.lists');
     $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.group');
