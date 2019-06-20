@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace App;
 
@@ -20,8 +20,6 @@ class Cache
         if (file_exists($this->path) && is_readable($this->path)) {
             return json_decode(file_get_contents($this->path));
         }
-
-        return null;
     }
 
     public function set($data)

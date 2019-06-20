@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace App;
 
@@ -36,10 +36,10 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\FormatI\CandidateHandler::class => Handler\FormatI\CandidateHandlerFactory::class,
-                Handler\FormatI\EntityHandler::class => Handler\FormatI\EntityHandlerFactory::class,
+                Handler\FormatI\EntityHandler::class    => Handler\FormatI\EntityHandlerFactory::class,
                 Handler\FormatI\ExtensionHandler::class => Handler\FormatI\ExtensionHandlerFactory::class,
-                Handler\FormatI\GroupHandler::class => Handler\FormatI\GroupHandlerFactory::class,
-                Handler\FormatI\ListHandler::class => Handler\FormatI\ListHandlerFactory::class,
+                Handler\FormatI\GroupHandler::class     => Handler\FormatI\GroupHandlerFactory::class,
+                Handler\FormatI\ListHandler::class      => Handler\FormatI\ListHandlerFactory::class,
             ],
         ];
     }
