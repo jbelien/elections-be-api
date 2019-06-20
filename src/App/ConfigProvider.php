@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace App;
 
@@ -35,6 +35,7 @@ class ConfigProvider
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
+                Handler\API\CandidatesHandler::class    => Handler\API\CandidatesHandlerFactory::class,
                 Handler\FormatI\CandidateHandler::class => Handler\FormatI\CandidateHandlerFactory::class,
                 Handler\FormatI\EntityHandler::class    => Handler\FormatI\EntityHandlerFactory::class,
                 Handler\FormatI\ExtensionHandler::class => Handler\FormatI\ExtensionHandlerFactory::class,
