@@ -36,6 +36,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\FormatI\CandidateHandler::class => Handler\FormatI\CandidateHandlerFactory::class,
+                Handler\FormatI\EntityHandler::class => Handler\FormatI\EntityHandlerFactory::class,
             ],
         ];
     }
