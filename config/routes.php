@@ -10,8 +10,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 
-    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\EntitiesHandler::class, 'api.entities');
-    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}/level/{level:\w+}', App\Handler\API\EntitiesHandler::class, 'api.entities.level');
+    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\EntitiesHandler::class, 'entities');
+    $app->get('/entities/{year:[0-9]{4}}/{type:\w+}/level/{level:\w+}', App\Handler\API\EntitiesHandler::class, 'entities.level');
 
     $app->get('/groups/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\GroupsHandler::class, 'groups');
 

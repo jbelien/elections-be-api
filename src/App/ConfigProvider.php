@@ -36,6 +36,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\API\CandidatesHandler::class    => Handler\API\CandidatesHandlerFactory::class,
+                Handler\API\EntitiesHandler::class      => Handler\API\EntitiesHandlerFactory::class,
                 Handler\API\GroupsHandler::class        => Handler\API\GroupsHandlerFactory::class,
                 Handler\API\ListsHandler::class         => Handler\API\ListsHandlerFactory::class,
                 Handler\FormatI\CandidateHandler::class => Handler\FormatI\CandidateHandlerFactory::class,

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace App;
 
@@ -36,12 +36,12 @@ class Cache
         return $json;
     }
 
-    public static function path(string $route, array $params = []): string
+    public static function path(string $route, array $params = [], string $format = 'json'): string
     {
         if (count($params) === 0) {
-            return sprintf('data/cache/api/%s.json', $route);
+            return sprintf('data/cache/api/%s.%s', $route, $format);
         }
 
-        return sprintf('data/cache/api/%s/%s.json', str_replace('.', '/', $route), implode('/', array_values($params)));
+        return sprintf('data/cache/api/%s/%s.%s', str_replace('.', '/', $route), implode('/', array_values($params)), $format);
     }
 }
