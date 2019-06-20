@@ -38,6 +38,7 @@ class ConfigProvider
                 Handler\FormatI\CandidateHandler::class => Handler\FormatI\CandidateHandlerFactory::class,
                 Handler\FormatI\EntityHandler::class => Handler\FormatI\EntityHandlerFactory::class,
                 Handler\FormatI\ExtensionHandler::class => Handler\FormatI\ExtensionHandlerFactory::class,
+                Handler\FormatI\GroupHandler::class => Handler\FormatI\GroupHandlerFactory::class,
             ],
         ];
     }
