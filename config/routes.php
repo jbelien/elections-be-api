@@ -15,9 +15,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/groups/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\GroupsHandler::class, 'groups');
 
-    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\ListsHandler::class, 'api.lists');
-    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.group');
-    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/entity/{entity:\d+}', App\Handler\API\ListsHandler::class, 'api.lists.entity');
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\ListsHandler::class, 'lists');
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/group/{group:\d+}', App\Handler\API\ListsHandler::class, 'lists.group');
+    $app->get('/lists/{year:[0-9]{4}}/{type:\w+}/entity/{entity:\d+}', App\Handler\API\ListsHandler::class, 'lists.entity');
 
     $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}[/{id:\d+}]', App\Handler\API\CandidatesHandler::class, 'candidates');
     $app->get('/candidates/{year:[0-9]{4}}/{type:\w+}/list/{list:\d+}', App\Handler\API\CandidatesHandler::class, 'candidates.list');
