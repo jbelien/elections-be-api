@@ -14,7 +14,7 @@ use Zend\Diactoros\Response\JsonResponse;
 
 class VoteCandidatesHandler implements RequestHandlerInterface
 {
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $year = $request->getAttribute('year');
         $type = $request->getAttribute('type');
