@@ -46,7 +46,7 @@ class G
         return $g;
     }
 
-    public function getDateTime() : DateTime
+    public function getDateTime(): DateTime
     {
         return DateTime::createFromFormat('d/m/Y H:i:s', $this->date . ' ' . $this->time);
     }

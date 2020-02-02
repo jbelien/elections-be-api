@@ -24,7 +24,7 @@ class HomePageHandler implements RequestHandlerInterface
         $this->router = $router;
     }
 
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new RedirectResponse('https://github.com/jbelien/elections-be-api', 307);
     }
